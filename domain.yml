@@ -1,0 +1,336 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- thank
+- chitchat
+- danger:
+    triggers: action_danger_form
+- busy:
+    triggers: action_busy_form
+- no_need:
+    triggers: action_no_need
+- good_health:
+    triggers: action_good_health
+- family_deny:
+    triggers: action_family_deny
+- low_voice:
+    triggers: action_low_voice_form
+- fast_voice:
+    triggers: action_fast_voice
+- questions:
+    triggers: action_question
+- already_had01:
+    triggers: already_had01_form
+- already_had02:
+    triggers: already_had02_form
+- already_medical01:
+    triggers: action_already_medical01
+- know_more01
+- know_more02
+- know_more03:
+    triggers: action_know_more03
+- know_more04
+- advise_more:
+    triggers: advise_more_form
+- unbelieve00:
+    triggers: action_unbelieve00
+- unbelieve01:
+    triggers: action_unbelieve01
+- unbelieve02:
+    triggers: action_unbelieve02
+- unbelieve03:
+    triggers: action_unbelieve03
+- unbelieve04:
+    triggers: action_unbelieve04
+- overage:
+    triggers: action_overage
+- FAQ01:
+    triggers: action_FAQ01
+- FAQ02:
+    triggers: action_FAQ02
+- FAQ03:
+    triggers: action_FAQ03
+- FAQ04:
+    triggers: action_FAQ04
+- FAQ05:
+    triggers: action_FAQ05
+- bot_challenge
+- give_number
+- give_people
+- EXTERNAL_reminder:
+    triggers: my_reminder
+- give_time
+- sickness
+- unblieve04
+entities:
+- number_insurance
+- people
+- sick
+- day
+- week
+slots:
+  addition01:
+    type: bool
+    auto_fill: false
+  addition02:
+    type: bool
+    auto_fill: false
+  addition03:
+    type: bool
+    auto_fill: false
+  advise_more:
+    type: bool
+    auto_fill: false
+  already_had01:
+    type: unfeaturized
+    auto_fill: false
+  bad_sick:
+    type: bool
+    auto_fill: false
+  boss:
+    type: bool
+    auto_fill: false
+  boss2:
+    type: unfeaturized
+    auto_fill: false
+  busy:
+    type: bool
+    auto_fill: false
+  danger:
+    type: bool
+    auto_fill: false
+  day:
+    type: unfeaturized
+    auto_fill: false
+  end_step1:
+    type: unfeaturized
+    auto_fill: false
+  health01:
+    type: bool
+    auto_fill: false
+  health02:
+    type: bool
+    auto_fill: false
+  health03:
+    type: bool
+    auto_fill: false
+  health04:
+    type: bool
+    auto_fill: false
+  health_insurance:
+    type: unfeaturized
+    auto_fill: false
+  low_voice:
+    type: bool
+    auto_fill: false
+  number_insurance:
+    type: unfeaturized
+    auto_fill: false
+  people:
+    type: unfeaturized
+    auto_fill: false
+  sick:
+    type: unfeaturized
+    auto_fill: false
+  start02:
+    type: unfeaturized
+    auto_fill: false
+  start03:
+    type: unfeaturized
+    auto_fill: false
+  start04:
+    type: unfeaturized
+    auto_fill: false
+  surgery:
+    type: bool
+    auto_fill: false
+  time:
+    type: unfeaturized
+    auto_fill: false
+  week:
+    type: unfeaturized
+    auto_fill: false
+responses:
+  utter_ask_number_insurance:
+  - text: "Chào Anh/Chị, em là (tên TSR) gọi Anh/Chị từ công ty Hoa Sao liên kết với\
+      \ Công ty PVI  thuộc Dầu Khí Việt Nam \n Cám ơn anh chị đã nhấc máy.\nEm có\
+      \ nhận được thông tin là Anh/Chị có gửi yêu cầu trên trang web của bên em, cảm\
+      \ ơn Anh/Chị đã đăng ký. Nhân tiện đây, Anh/Chị cho em biết số lượng hợp đồng\
+      \ mình muốn đăng ký được không ạ?"
+  utter_ask_people:
+  - text: Mình mua cho ai vậy ạ?
+  utter_ask_end_step1:
+  - text: "Cảm ơn thông tin của Anh/Chị.Em gọi để hỗ trợ Anh/Chị tham gia sản phẩm\
+      \ này ạ.\n Anh/Chị có thể cho em ít phút được không ạ?"
+  utter_ask_start02:
+  - text: "Em xin cám ơn.\nVì hiếm có cơ hội để mua được bảo hiểm của PVI với giá\
+      \ thấp mà Anh/Chị có thể sử dụng tại các bệnh viện trên toàn quốc với giá thấp\
+      \ như vầy, nên chỉ lần này em xin đề xuất đến Anh/Chị gói bảo hiểm này. Em tin\
+      \ rằng đây là sự lựa chọn tuyệt vời cho Anh/Chị."
+  utter_ask_start03:
+  - text: "(Nhân tiên/Với lại) Em muốn giới thiệu đến Anh/Chị 3 đặc điểm nổi bật của\
+      \ bảo hiểm này như sau:\n - Thứ nhất, mặc dù bảo hiểm này hỗ trợ chi phí điều\
+      \ trị nội trú và phẫu thuật, tuy nhiên giá thì chỉ khoảng 3,000VND ngày. Ngay\
+      \ cả khi anh/chị mua thêm gói ngoại trú và gói điều trị tiên tiến cho một số\
+      \ bệnh ung thư, thì giá cũng chỉ thấp hơn 7,000 đồng ngày, chỉ bằng giá nửa\
+      \ ổ bánh mỳ. Hơn nữa, mặc dù giá thấp nhưng anh/chị được bảo đảm bởi công ty\
+      \ bảo hiểm Dầu khí uy tín lâu năm.\n\n- Thứ hai, cao cấp hơn bảo hiểm y tế nhà\
+      \ nuớc, bảo hiểm bên em không bị giới hạn về tuyến bệnh viện và sử dụng được\
+      \ ở bất kì bệnh viện nào trên toàn quốc.\n\n- Thứ ba, thủ tục mua bảo hiểm rất\
+      \ đơn giản chỉ mất 5 phút để hoàn thành thủ tục qua điện thoại"
+  utter_ask_start04:
+  - text: "Bởi vì đây là bảo hiểm sức khoẻ nên việc đăng ký tham gia bảo hiểm sẽ phụ\
+      \ thuộc vào tình hình sức khoẻ của Anh/Chị. Do vậy, Anh/Chị nên đăng ký bảo\
+      \ hiểm này lúc mình đang khoẻ mạnh.\n- Vì bảo hiểm này có nhiều lợi ích như\
+      \ tham gia không cần giấy tờ chứng nhận sức khoẻ của bác sĩ, thủ tục đăng kí\
+      \ nhanh chóng chỉ có 5 phút qua điện thoại, nhưng có thể sử dụng ở bất cứ bệnh\
+      \ viện nào trên toàn quốc cho điều trị nội trú, phẫu thuật, ngoại trú, và những\
+      \ dịch vụ điều trị với công nghệ tiên tiến nhất trong điều trị ung thư, đặc\
+      \ biệt là được bảo đảm bởi công ty Bảo hiểm Dầu Khí  Việt Nam uy tín hàng đầu\
+      \ tại Việt Nam.\n- Mặc dù bảo hiểm này có nhiều lợi ích như vậy nhưng Anh/Chị\
+      \ chỉ cần trả ít hơn 7,000 đồng ngày, thấp hơn cả ổ bánh mỳ ăn sáng nữa. Em\
+      \ ví dụ gói chính của sản phẩm này có thể chi trả cho Anh/Chị lên đến 62,5 triệu\
+      \ đồng phí phẫu thuật. Em tên ... phụ trách việc đăng kí bảo hiểm này, nhân\
+      \ cơ hội tốt này, Anh/Chị có muốn tham gia bảo hiểm ngay hôm nay luôn không\
+      \ ạ? "
+  utter_start05:
+  - text: Em thấy Anh/Chị cũng quan tâm đến bảo hiểm này. Trước khi giới thiệu chi
+      tiết về các gói bảo hiểm, Anh/Chị cho phép em hỏi  4 câu hỏi liên quan đến tình
+      trạng sức khoẻ của Anh/Chị ạ. Thông tin này sẽ giúp em tạm thời đo lường xem
+      Anh/Chị có phù hợp với sản phẩm này hay không ạ.
+  utter_ask_health01:
+  - text: Anh/Chị đã được bác sĩ tư vấn nên tiến hành điều trị bệnh nào đó hoặc đã
+      được điều trị, và / hoặc nhập viện và / hoặc trải qua một cuộc giải phẫu tại
+      bệnh viện, điều trị tại nhà, phòng khám hoặc các cơ sở y tế khác trong suốt
+      3 năm qua không?
+  utter_ask_health02:
+  - text: Anh/Chị hiện đang được theo dõi và / hoặc điều trị cho bất kỳ thương tật,
+      bệnh tật / các triệu chứng bất thường; Hoặc dự định sẽ được điều trị trong vòng
+      12 tháng tới?
+  utter_ask_health03:
+  - text: Anh/ Chị đã từng mắc phải, hoặc được thông báo rằng Anh/ Chị  mắc phải,
+      hoặc đang trong quá trình kiểm tra bệnh viêm gan siêu vi B/C, ung thư, khối
+      u, u nang, phát triển ung thư biểu mô tại chỗ của bất kỳ loại ung thư nào không?
+  utter_ask_health04:
+  - text: Anh/ Chị đã từng bị khước từ nhận bảo hiểm sức khỏe hoặc được chấp nhận
+      nhưng với điều kiện áp dụng các điều khoản bổ sung đặc biệt khác trong vòng
+      5 năm gần đây không?
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_step06:
+  - text: "Và đây là các đặc điểm nổi trội của gói bảo hiểm chính:\n1. Viện phí trong\
+      \ thời gian điều trị nội trú: (Tối đa 60 ngày/năm) 1,250,000 VND/ngày, tối đa\
+      \ 62,500,000 VND/năm\n  - Tiền giường điều trị\n- Xét nghiệm, chẩn đoán hình\
+      \ ảnh\n- Thuốc điều trị\n- Các chi phí y tế khác\n2. Chi phí phẫu thuật (không\
+      \ bao gồm chi phí khám tiền phẫu thuật) : tối đa 62,500,000 VND/năm\n3. Chi\
+      \ phí y tế cho phương pháp điều trị ung thư tiên tiến  (giới hạn cho từng bệnh)\
+      \ lên đến 125,000,000 VND/năm\n"
+  utter_ask_addition01:
+  - text: Bên em cũng có gói lựa chọn hỗ trợ chi trả chi phí điều trị ung thư đắt
+      đỏ như Anh/Chị sẽ nhận được tiền bảo hiểm khi có chẩn đoán ung thư lên đến 125
+      triệu đồng cho 1 chẩn đoán ung thư. Vậy Anh/Chị có muốn mua thêm không ạ?
+  utter_ask_addition02:
+  - text: Ngoài ra, để được bảo vệ toàn diện hơn, bên em cũng có gói ngoại trú khám
+      và lấy thuốc về trong ngày và hỗ trợ lên đến 4 triệu đồng. Vậy anh/Chị có muốn
+      mua thêm không ạ?
+  utter_ask_addition03:
+  - text: 'Anh/Chị sẽ có hạn mức quyền lợi cao hơn nếu nâng cấp gói này với cùng nội
+      dung bảo hiểm. Bên em có 3 gói cao hơn để đáp ứng nhu cầu của Anh/Chị: Bạc,
+      Vàng, Kim Cương. Vậy Anh/Chị muốn nâng cấp không ạ?'
+  utter_ask_danger:
+  - text: Dạ em là (…) gọi từ Hoa Sao có liên kết với PVI thuộc Dầu Khí Việt Nam,
+      chỉ riêng ngày hôm nay em mang đến cho A/C một lời đề nghị đặc biệt từ PVI,
+      chỉ xin A/C 2 phút qua điện thoại thôi ạ. A/C có thể ngừng xe một lát được không
+      ạ?
+  utter_ask_busy:
+  - text: Chỉ riêng ngày hôm nay em mang đến cho A/C một lời đề nghị đặc biệt từ PVI,
+      chỉ xin A/C 2 phút qua điện thoại.
+  utter_remind:
+  - text: Em nói có khó nghe không ạ ?
+  - text: Em nói có nhanh quá không ?
+  utter_FAQ01:
+  - text: Dạ,quyền lợi BH lựa chọn nghĩa là chỉ với 285,000 VND, sẽ nhận được 125
+      triệu đồng tiền mặt cho một chẩn đoán ung thư
+  utter_FAQ02:
+  - text: Chỉ ngày hôm nay Anh Chị là KH may mắn được bên em lựa chọn để mang đến
+      lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín trên thị trường. Mặc dù
+      giá thị trường là 5 triệu đồng, nhưng hôm nay anh chị có thể sở hữu gói bảo
+      hiểm này khoảng 1 triệu đồng thôi ạ.
+  utter_FAQ03:
+  - text: Với gói lựa chọn, Anh Chị sẽ có thêm quyền lợi là nhận được 125 triệu đồng
+      tiền mặt cho một chẩn đoán ung thư
+  utter_FAQ04:
+  - text: Nó cũng đơn giản như thủ tục của Anh Chị vậy, chỉ cần trả lời 4 câu hỏi
+      sức khỏe của người thân gia đình mình và nhân viên bên em sẽ đến nhà anh chỉ
+      để thu phí cùng lúc cho cả gia đình luôn ạ!
+  utter_FAQ05:
+  - text: Các hạn mức gói cao hơn thì sẽ được hưởng mức quyền lợi cao hơn, ví dụ như
+      gói Kim Cương tổng quyền lợi bảo hiểm là 500 triệu đồng cho nội trú và phẫu
+      thuật
+  utter_ask_low_voice:
+  - text: Em xin lỗi. Để em nói to hơn ạ. A/C nghe em chưa ạ?
+  utter_ask_boss:
+  - text: A/C có phải là chủ doanh nghiệp không ạ?
+  utter_ask_sick:
+  - text: Bệnh/Triệu chứng của bệnh đó là gì?
+  utter_ask_time:
+  - text: Nếu phải nằm viện, Anh/Chị phải điều trị trong bao lâu?
+  utter_ask_surgery:
+  - text: Anh/Chị có từng phẫu thuật không?
+  utter_ask_advise_more:
+  - text: Dạ em hiểu, nhưng thủ tục thanh toán của PVI rất đơn giản. nếu A/C đi đến
+      bệnh viện có liên kết, A/C chỉ cần đưa thẻ BH và CMND, PVI sẽ thanh toán phí
+      trực tiếp cho A/C trong giới hạn quyền lợi. Nó rất tiện lợi cho A/C.
+  utter_ask_bad_sick:
+  - text: Cám ơn Anh/Chị. Thông qua câu trả lời về sức khỏe hiện tại của Anh/Chị,,
+      có khả năng PVI khó có thể chấp nhận cho Anh/Chị được bảo hiểm. Vậy Anh/Chị
+      có muốn tiếp tục không ạ? Nếu Anh/Chị vẫn muốn tham gia thì em sẽ gửi thông
+      tin sức khỏe của mình sang bộ phận thẩm định của PVI để họ có ra quyết định
+      cuối cùng ạ.
+  utter_ask_already_had01:
+  - text: Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản
+      phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi.Anh chị
+      có muốn tiếp tục được tư vấn không ạ ?
+  utter_ask_health_insurance:
+  - text: A/c có BHYT phải không ?
+  utter_ask_boss2:
+  - text: A/c có phải chủ DN không ạ ?
+actions:
+- my_reminder
+- action_unbelieve00
+- action_unbelieve01
+- action_unbelieve02
+- action_unbelieve03
+- action_unbelieve04
+- action_no_need
+- action_good_health
+- action_family_deny
+- action_question
+- action_already_medical01
+- action_know_more03
+- action_overage
+- action_FAQ01
+- action_FAQ02
+- action_FAQ03
+- action_FAQ04
+- action_FAQ05
+- action_set_reminder
+forms:
+- begin_form
+- health_form
+- additional_form
+- action_danger_form
+- action_busy_form
+- action_fast_voice
+- action_low_voice_form
+- already_had02_form
+- already_had01_form
+- advise_more_form
+- sub_health_form
+- bad_health_form
+- step2_form
