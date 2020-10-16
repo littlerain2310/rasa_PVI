@@ -10,6 +10,7 @@ import datetime
 import time
 from threading import Timer
 import re
+import random
 class ActionDangerForm(FormAction):
     def name(self):
         return "action_danger_form"
@@ -165,7 +166,7 @@ class ActionKnowMore03(Action):
         dispatcher.utter_message('Dạ vâng, hôm nay A/C là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín số một trên thị trường.')
         
         return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]    
-class ActionUnbelieve00(Action):
+class Unbelieve(Action):
     def name(self):
         return "action_unbelieve00"
     def run(self, dispatcher: CollectingDispatcher,
@@ -173,7 +174,7 @@ class ActionUnbelieve00(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ em hiểu. Nhưng đây là lời đề nghị đặc biệt từ PVI có trên 55 năm kinh nghiệm về bảo hiểm. Bên cạnh đó ')      
         return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]   
-class ActionUnbelieve01(Action):
+class LostMoney(Action):
     def name(self):
         return "action_unbelieve01"
     def run(self, dispatcher: CollectingDispatcher,
@@ -181,7 +182,7 @@ class ActionUnbelieve01(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ, em hiểu. 1 năm mình không dùng BH thì đó là điều tốt rồi ạ! Mà thật sự là phí bên em rất thấp mà quyền lợi lại cao. Ví dụ, một ngày nằm viện là 1-2 triệu rồi, mà phí 1 năm bên em chỉ có tầm hơn 1 triệu. Bên cạnh đó')
         return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]   
-class ActionUnbelieve02(Action):
+class Complicated(Action):
     def name(self):
         return "action_unbelieve02"
     def run(self, dispatcher: CollectingDispatcher,
@@ -189,7 +190,7 @@ class ActionUnbelieve02(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ em hiểu, nhưng thủ tục bồi thường của PVI rất đơn giản. Nếu A/C đi đến bệnh viện có liên kết, A/C chỉ cần đưa thẻ BH và CMND, PVI sẽ thanh toán phí trực tiếp cho A/C theo quyền lợi mình nhận được ạ')
         return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]  
-class ActionUnbelieve03(Action):
+class PhoneCallUnbelieve(Action):
     def name(self):
         return "action_unbelieve03"
     def run(self, dispatcher: CollectingDispatcher,
@@ -197,7 +198,7 @@ class ActionUnbelieve03(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ, em hiểu. Em là (Tên TSR) gọi từ Hoa Sao là đại lý chính thức của PVI, địa chỉ công ty em là 8A Huỳnh Lan Khanh Phường 2 Quận Tân Bình. Với lại')
         return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]  
-class ActionUnbelieve04(Action):
+class NoContrast(Action):
     def name(self):
         return "action_unbelieve04"
     def run(self, dispatcher: CollectingDispatcher,
@@ -440,45 +441,55 @@ class AdviseMore(FormAction):
             return[]
         else:
             return [SlotSet('advise_more',True),FollowupAction("step2_form")]
-class FAQ01(Action):
+class OptionInsuranceRight(Action):
     def name(self):
-        return "acation_FAQ01"
+        return "action_FAQ01"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_message('Dạ em hiểu. Nếu A/C đồng ý mua thì sau cuộc gọi này, nhân viên bên em sẽ mang đơn đăng kí tham gia đến cho A/C kí trực tiếp ạ, nên A/C cứ yên tâm. Nhân tiện đây ')
+        dispatcher.utter_message('Dạ,quyền lợi BH lựa chọn nghĩa là chỉ với 285,000 VND, sẽ nhận được 125 triệu đồng tiền mặt cho một chẩn đoán ung thư')
+        slot_to_fill = tracker.get_slot("requested_slot")
+        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
         return []
-class FAQ02(Action):
+class Sale(Action):
     def name(self):
-        return "acation_FAQ02"
+        return "action_FAQ02"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Chỉ ngày hôm nay Anh Chị là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín trên thị trường. Mặc dù giá thị trường là 5 triệu đồng, nhưng hôm nay anh chị có thể sở hữu gói bảo hiểm này khoảng 1 triệu đồng thôi ạ.')
+        slot_to_fill = tracker.get_slot("requested_slot")
+        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
         return []
-class FAQ03(Action):
+class WhyIHaveToMore(Action):
     def name(self):
-        return "acation_FAQ03"
+        return "action_FAQ03"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Với gói lựa chọn, Anh Chị sẽ có thêm quyền lợi là nhận được 125 triệu đồng tiền mặt cho một chẩn đoán ung thư')
+        slot_to_fill = tracker.get_slot("requested_slot")
+        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
         return []
 class FAQ04(Action):
     def name(self):
-        return "acation_FAQ04"
+        return "action_FAQ04"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Nó cũng đơn giản như thủ tục của Anh Chị vậy, chỉ cần trả lời 4 câu hỏi sức khỏe của người thân gia đình mình và nhân viên bên em sẽ đến nhà anh chỉ để thu phí cùng lúc cho cả gia đình luôn ạ!')
+        slot_to_fill = tracker.get_slot("requested_slot")
+        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
         return []
-class FAQ05(Action):
+class GoldDiaMond(Action):
     def name(self):
-        return "acation_FAQ05"
+        return "action_FAQ05"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Các hạn mức gói cao hơn thì sẽ được hưởng mức quyền lợi cao hơn, ví dụ như gói Kim Cương tổng quyền lợi bảo hiểm là 500 triệu đồng cho nội trú và phẫu thuật')
+        slot_to_fill = tracker.get_slot("requested_slot")
+        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
         return []        
 class MyReminder(Action):
     def name(self):
@@ -498,11 +509,11 @@ class BeginForm(FormAction):
     def slot_mappings(self):
         return{
             "number_insurance": [
-                self.from_entity(entity="number_insurance",not_intent="chichat"),
+                #self.from_entity(entity="number_insurance",not_intent="chichat"),
                 self.from_text()
             ],
             "people":[
-                self.from_entity(entity="people",not_intent="chichat"),
+                # self.from_entity(entity="people",not_intent="chichat"),
                 self.from_text()
             ]
         }
@@ -514,7 +525,7 @@ class BeginForm(FormAction):
                                         name="my_reminder",
                                         kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
-        value = tracker.latest_message.get("text")
+        # value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
         if slot_to_fill: 
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
@@ -652,6 +663,7 @@ class HealthForm(FormAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
         )  ->List[Dict]:
+        ran = random.randrange(0,2)
         result = []
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
@@ -661,11 +673,16 @@ class HealthForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         if tracker.get_slot('health01') == True or tracker.get_slot('health02') == True or tracker.get_slot('health03') == True or tracker.get_slot('health04') == True:
-            return [result,FollowupAction('sub_health_form')]
+            return [result,FollowupAction('sub_health_form')]      
         else :
-            dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
-            dispatcher.utter_template('utter_step06',tracker)
-            return [result,FollowupAction('additional_form')]
+            if ran == 0 :
+                dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
+                dispatcher.utter_template('utter_step06',tracker)
+                return [result,FollowupAction('additional_form')]
+            else :
+                dispatcher.utter_message('Cám ơn Anh/Chị đã trả lời câu hỏi, vì em chưa biết rõ về tình trạng sức khoẻ của Anh/Chị nên em xin phép được tiếp tục các bước tiếp theo')
+                dispatcher.utter_message('Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
+                return [result,FollowupAction('additional_form')]
 class SubHealthForm(FormAction):
     def name(self):
         return 'sub_health_form'

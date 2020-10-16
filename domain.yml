@@ -168,10 +168,10 @@ responses:
   - text: "Cảm ơn thông tin của Anh/Chị.Em gọi để hỗ trợ Anh/Chị tham gia sản phẩm\
       \ này ạ.\n Anh/Chị có thể cho em ít phút được không ạ?"
   utter_ask_start02:
-  - text: "Em xin cám ơn.\nVì hiếm có cơ hội để mua được bảo hiểm của PVI với giá\
-      \ thấp mà Anh/Chị có thể sử dụng tại các bệnh viện trên toàn quốc với giá thấp\
-      \ như vầy, nên chỉ lần này em xin đề xuất đến Anh/Chị gói bảo hiểm này. Em tin\
-      \ rằng đây là sự lựa chọn tuyệt vời cho Anh/Chị."
+  - text: Vì hiếm có cơ hội để mua được bảo hiểm của PVI với giá thấp mà Anh/Chị có
+      thể sử dụng tại các bệnh viện trên toàn quốc với giá thấp như vầy, nên chỉ lần
+      này em xin đề xuất đến Anh/Chị gói bảo hiểm này. Em tin rằng đây là sự lựa chọn
+      tuyệt vời cho Anh/Chị.
   utter_ask_start03:
   - text: "(Nhân tiên/Với lại) Em muốn giới thiệu đến Anh/Chị 3 đặc điểm nổi bật của\
       \ bảo hiểm này như sau:\n - Thứ nhất, mặc dù bảo hiểm này hỗ trợ chi phí điều\
