@@ -26,11 +26,11 @@ class ActionDangerForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -72,11 +72,11 @@ class ActionBusyForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -111,7 +111,7 @@ class ActionNoNeed(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ vâng em hiểu ạ, chỉ ngày hôm nay A/C là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín số một trên thị trường')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionGoodHealth(Action):
     def name(self):
         return "action_good_health"
@@ -120,7 +120,7 @@ class ActionGoodHealth(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Chúc mừng A/C đang có sức khoẻ tốt ')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionFamilyDeny(Action):
     def name(self):
         return "action_family_deny"
@@ -128,8 +128,7 @@ class ActionFamilyDeny(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Phí sản phầm này rất thấp, nó cũng phù hợp cho gia đình của mình luôn ')
-        
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionFastVoice(Action):
     def name(self):
         return "action_fast_voice"
@@ -138,7 +137,7 @@ class ActionFastVoice(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Em xin lỗi ạ. Để em nói chậm lại ạ (giảm tốc độ nói lại)')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionQuestion(Action):
     def name(self):
         return "action_question"
@@ -147,7 +146,7 @@ class ActionQuestion(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Để em giải thích cho A/C ạ.')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionAlreadyMedical(Action):
     def name(self):
         return "action_already_medical01"
@@ -156,7 +155,7 @@ class ActionAlreadyMedical(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Chúc mừng A/C đã có gói bảo hiểm cho mình. Cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm bên em không bị giới hạn về tuyến bệnh viện, sử dụng được ở bất kì bệnh viện nào trên toàn quốc và quy trình rất nhanh và dễ dàng.   Nên có rất nhiều người mua thêm sản phẩm này bên cạnh gói BHYTNN để gia tăng quyền lợi. Bên cạnh đó,')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
 class ActionKnowMore03(Action):
     def name(self):
         return "action_know_more03"
@@ -165,7 +164,7 @@ class ActionKnowMore03(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ vâng, hôm nay A/C là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín số một trên thị trường.')
         
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]    
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]    
 class Unbelieve(Action):
     def name(self):
         return "action_unbelieve00"
@@ -173,7 +172,7 @@ class Unbelieve(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ em hiểu. Nhưng đây là lời đề nghị đặc biệt từ PVI có trên 55 năm kinh nghiệm về bảo hiểm. Bên cạnh đó ')      
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]   
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]   
 class LostMoney(Action):
     def name(self):
         return "action_unbelieve01"
@@ -181,7 +180,7 @@ class LostMoney(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ, em hiểu. 1 năm mình không dùng BH thì đó là điều tốt rồi ạ! Mà thật sự là phí bên em rất thấp mà quyền lợi lại cao. Ví dụ, một ngày nằm viện là 1-2 triệu rồi, mà phí 1 năm bên em chỉ có tầm hơn 1 triệu. Bên cạnh đó')
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]   
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]   
 class Complicated(Action):
     def name(self):
         return "action_unbelieve02"
@@ -189,7 +188,7 @@ class Complicated(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ em hiểu, nhưng thủ tục bồi thường của PVI rất đơn giản. Nếu A/C đi đến bệnh viện có liên kết, A/C chỉ cần đưa thẻ BH và CMND, PVI sẽ thanh toán phí trực tiếp cho A/C theo quyền lợi mình nhận được ạ')
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]  
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]  
 class PhoneCallUnbelieve(Action):
     def name(self):
         return "action_unbelieve03"
@@ -197,7 +196,7 @@ class PhoneCallUnbelieve(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ, em hiểu. Em là (Tên TSR) gọi từ Hoa Sao là đại lý chính thức của PVI, địa chỉ công ty em là 8A Huỳnh Lan Khanh Phường 2 Quận Tân Bình. Với lại')
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]  
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]  
 class NoContrast(Action):
     def name(self):
         return "action_unbelieve04"
@@ -205,7 +204,7 @@ class NoContrast(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ em hiểu. Nếu A/C đồng ý mua thì sau cuộc gọi này, nhân viên bên em sẽ mang đơn đăng kí tham gia đến cho A/C kí trực tiếp ạ, nên A/C cứ yên tâm. Nhân tiện đây ')
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]  
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]  
 class ActionOverAge(Action):
     def name(self):
         return "action_overage"
@@ -213,12 +212,12 @@ class ActionOverAge(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Rất tiếc cô chú không thể tham gia được sản phẩm đặc biệt này của PVI. Tuy nhiên, cô chú có thể tham gia cho gia đình hoặc nhân viên công ty nếu cố chú là chủ doanh nghiệp ạ. ')
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]    
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]    
 class ActionLowVoice(FormAction):    
     def name(self):
         return "action_low_voice_form"
     @staticmethod
-    def required_slots(tracker)-> List[Text]:
+    def requested_slot(tracker)-> List[Text]:
         return["low_voice"]
     def slot_mappings(self):
         return {
@@ -229,11 +228,11 @@ class ActionLowVoice(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -309,11 +308,11 @@ class AlreadyHad01(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -365,11 +364,11 @@ class AlreadyHad02(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -411,11 +410,11 @@ class AdviseMore(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -449,8 +448,8 @@ class OptionInsuranceRight(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Dạ,quyền lợi BH lựa chọn nghĩa là chỉ với 285,000 VND, sẽ nhận được 125 triệu đồng tiền mặt cho một chẩn đoán ung thư')
         slot_to_fill = tracker.get_slot("requested_slot")
-        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
-        return []
+        dispatcher.utter_message(template='utter_ask_{}'.format(slot_to_fill))
+        return [FollowupAction("additional_form")]
 class Sale(Action):
     def name(self):
         return "action_FAQ02"
@@ -458,9 +457,10 @@ class Sale(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Chỉ ngày hôm nay Anh Chị là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín trên thị trường. Mặc dù giá thị trường là 5 triệu đồng, nhưng hôm nay anh chị có thể sở hữu gói bảo hiểm này khoảng 1 triệu đồng thôi ạ.')
-        slot_to_fill = tracker.get_slot("requested_slot")
-        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
-        return []
+        # slot_to_fill = tracker.get_slot("requested_slot")
+        
+        # dispatcher.utter_message(template='utter_ask_{}'.format(slot_to_fill))
+        return [FollowupAction("additional_form")]
 class WhyIHaveToMore(Action):
     def name(self):
         return "action_FAQ03"
@@ -469,8 +469,8 @@ class WhyIHaveToMore(Action):
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Với gói lựa chọn, Anh Chị sẽ có thêm quyền lợi là nhận được 125 triệu đồng tiền mặt cho một chẩn đoán ung thư')
         slot_to_fill = tracker.get_slot("requested_slot")
-        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
-        return []
+        dispatcher.utter_message(template='utter_ask_{}'.format(slot_to_fill))
+        return [FollowupAction("additional_form")]
 class FAQ04(Action):
     def name(self):
         return "action_FAQ04"
@@ -478,27 +478,31 @@ class FAQ04(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Nó cũng đơn giản như thủ tục của Anh Chị vậy, chỉ cần trả lời 4 câu hỏi sức khỏe của người thân gia đình mình và nhân viên bên em sẽ đến nhà anh chỉ để thu phí cùng lúc cho cả gia đình luôn ạ!')
-        slot_to_fill = tracker.get_slot("requested_slot")
-        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
-        return []
+        # slot_to_fill = tracker.get_slot("requested_slot")
+        # dispatcher.utter_message(template='utter_ask_{}'.format(slot_to_fill))
+        return [FollowupAction("additional_form")]
 class GoldDiaMond(Action):
     def name(self):
         return "action_FAQ05"
-    def run(self, dispatcher: CollectingDispatcher,
+    def run(self, dispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
         dispatcher.utter_message('Các hạn mức gói cao hơn thì sẽ được hưởng mức quyền lợi cao hơn, ví dụ như gói Kim Cương tổng quyền lợi bảo hiểm là 500 triệu đồng cho nội trú và phẫu thuật')
-        slot_to_fill = tracker.get_slot("requested_slot")
-        dispatcher.utter_template('utter_ask_{}'.format(slot_to_fill),tracker)
-        return []        
+        # slot_to_fill = tracker.get_slot("requested_slot")
+        # print("bug cua diamond")
+        # temp="utter_ask_{}".format(slot_to_fill)
+        # dispatcher.utter_message("bug ne")
+        # dispatcher.utter_message(template=temp)
+        # print("bug cua diamond")
+        return [FollowupAction("additional_form")]        
 class MyReminder(Action):
     def name(self):
         return 'my_reminder'
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]):
-        dispatcher.utter_template('utter_remind',tracker)
-        return [Form(None),SlotSet('required_slots',None),FollowupAction('step2_form')]   
+        dispatcher.utter_message(template='utter_remind')
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]   
 
 class BeginForm(FormAction):
     def name(self):
@@ -525,7 +529,7 @@ class BeginForm(FormAction):
                                         name="my_reminder",
                                         kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
-        # value = tracker.latest_message.get("text")
+        value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
         if slot_to_fill: 
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
@@ -546,7 +550,7 @@ class BeginForm(FormAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
         )  ->List[Dict]:
-        dispatcher.utter_template("utter_ask_end_step1",tracker)
+        dispatcher.utter_message(template="utter_ask_end_step1")
         return []
 
 class Step2Form(FormAction):
@@ -570,11 +574,11 @@ class Step2Form(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="my_reminder",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="my_reminder",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -604,7 +608,7 @@ class Step2Form(FormAction):
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
-        dispatcher.utter_template('utter_start05',tracker)
+        dispatcher.utter_message(template='utter_start05')
         if tracker.get_slot('start04') == True:
             return [result,FollowupAction('health_form')]
         else:
@@ -637,11 +641,11 @@ class HealthForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="my_reminder",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="my_reminder",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -677,7 +681,7 @@ class HealthForm(FormAction):
         else :
             if ran == 0 :
                 dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
-                dispatcher.utter_template('utter_step06',tracker)
+                dispatcher.utter_message(template='utter_step06')
                 return [result,FollowupAction('additional_form')]
             else :
                 dispatcher.utter_message('Cám ơn Anh/Chị đã trả lời câu hỏi, vì em chưa biết rõ về tình trạng sức khoẻ của Anh/Chị nên em xin phép được tiếp tục các bước tiếp theo')
@@ -715,11 +719,11 @@ class SubHealthForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -777,7 +781,7 @@ class SubHealthForm(FormAction):
             if week > 1:
                 return [result,FollowupAction('bad_health_form')]  
         dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.\n\nBên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.') 
-        dispatcher.utter_template('utter_step06',tracker)  
+        dispatcher.utter_message(template='utter_step06')  
         return [result,FollowupAction('additional_form')]
 class BadHealthForm(FormAction):
     def name(self):
@@ -794,11 +798,11 @@ class BadHealthForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -821,7 +825,7 @@ class BadHealthForm(FormAction):
             return[]
         else:
             dispatcher.utter_message("Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.")
-            dispatcher.utter_template('utter_step06',tracker)  
+            dispatcher.utter_message(template='utter_step06')  
             return [SlotSet('bad_sick',True),FollowupAction("additional_form")]
 class AdditionalForm(FormAction):
     def name(self):
@@ -846,11 +850,11 @@ class AdditionalForm(FormAction):
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="first_remind",
-                                        kill_on_user_message=True))
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
@@ -868,5 +872,13 @@ class AdditionalForm(FormAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
         )  ->List[Dict]:
+        result = []
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
         dispatcher.utter_message('Em xin lưu ý, kể từ khi bắt đầu ký tên và đóng phí thì bảo hiểm này sẽ có hiệu lực sau 30 ngày cho ốm bệnh thông thường, sau 90 ngày cho bệnh liên quan đến ung thư và sau 1 năm cho bệnh có sẵn và mãn tính.')
-        return []
+        return [result]

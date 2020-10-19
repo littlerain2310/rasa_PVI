@@ -62,8 +62,7 @@ intents:
 - bot_challenge
 - give_number
 - give_people
-- EXTERNAL_reminder:
-    triggers: my_reminder
+- EXTERNAL_reminder
 - give_time
 - sickness
 - unblieve04
