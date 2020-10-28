@@ -11,6 +11,8 @@ import time
 from threading import Timer
 import re
 import random
+
+age =0
 class ActionDangerForm(FormAction):
     def name(self):
         return "action_danger_form"
@@ -342,13 +344,13 @@ class AlreadyHad01(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         if tracker.get_slot("already_had01") == True:
-            return[result,FollowupAction("step2_form")]
+            return[FollowupAction("step2_form")]
         elif tracker.get_slot("health_insurance") == True:
-            return[result,FollowupAction("action_already_medical01")]
+            return[FollowupAction("action_already_medical01")]
         elif tracker.get_slot("boss2") == True:
-            return[result,FollowupAction("already_had02_form")]
+            return[FollowupAction("already_had02_form")]
         else:
-            return[result,FollowupAction("action_family_deny")]
+            return[FollowupAction("action_family_deny")]
 class AlreadyHad02(FormAction):
     def name(self):
         return 'already_had02_form'
@@ -509,68 +511,17 @@ class BeginForm(FormAction):
         return 'begin_form'
     @staticmethod
     def required_slots(tracker)-> List[Text]:
-        return ["number_insurance","people"]
+        return ["people"]
     def slot_mappings(self):
         return{
-            "number_insurance": [
-                #self.from_entity(entity="number_insurance",not_intent="chichat"),
-                self.from_text()
-            ],
+            # "number_insurance": [
+            #     #self.from_entity(entity="number_insurance",not_intent="chichat"),
+            #     self.from_text()
+            # ],
             "people":[
-                # self.from_entity(entity="people",not_intent="chichat"),
+                self.from_entity(entity="people",not_intent="chichat"),
                 self.from_text()
             ]
-        }
-    def validate(self, dispatcher, tracker, domain):
-        result = []
-        result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
-                                        trigger_date_time=datetime.datetime.now()
-                                        + datetime.timedelta(seconds=30),
-                                        name="my_reminder",
-                                        kill_on_user_message=True))
-        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
-        value = tracker.latest_message.get("text")
-        slot_to_fill = tracker.get_slot("requested_slot")
-        if slot_to_fill: 
-            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
-            value = tracker.latest_message["entities"] 
-            if not value:
-                print("''''")
-                text = tracker.latest_message.get("text")
-                result.append(SlotSet(slot_to_fill,text))
-        for slot, value in slot_values.items():
-            result.append(SlotSet(slot, value))
-        intent = tracker.latest_message.get("intent", {}).get("name")
-        if intent == "chitchat":
-            result.append(SlotSet(slot_to_fill,None))
-        return result
-    def submit(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-        )  ->List[Dict]:
-        dispatcher.utter_message(template="utter_ask_end_step1")
-        return []
-
-class Step2Form(FormAction):
-    def name(self):
-        return 'step2_form'
-    @staticmethod
-    def required_slots(tracker)-> List[Text]:
-        return ["start02","start03","start04"]
-    def slot_mappings(self):
-        return{
-            "start02": [
-                self.from_text()
-            ],
-            "start03": [
-                self.from_text()
-            ],
-            "start04": [
-                self.from_intent(intent="affirm",value= True),
-                self.from_intent(intent="deny",value= False)
-            ],
         }
     def validate(self, dispatcher, tracker, domain):
         result = []
@@ -582,18 +533,81 @@ class Step2Form(FormAction):
         slot_values = self.extract_other_slots(dispatcher, tracker, domain)
         value = tracker.latest_message.get("text")
         slot_to_fill = tracker.get_slot("requested_slot")
+        
         if slot_to_fill: 
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
             value = tracker.latest_message["entities"] 
             # if not value:
-            #     text = tracker.latest_message.get("text")
-            #     result.append(SlotSet(slot_to_fill,text))
+            #     print("''''")
+            #     # text = tracker.latest_message.get("text")
+            #     result.append(SlotSet(slot_to_fill,None))
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         intent = tracker.latest_message.get("intent", {}).get("name")
-        if intent == "chitchat":
-            result.append(SlotSet(slot_to_fill,None))
+        # if slot_to_fill == "number_insurance" :
+        #     if intent != "give_number":
+        #         print('bug')
+        #         result.append(SlotSet(slot_to_fill,None))
+        if slot_to_fill == "people" :
+            if intent != "give_people":
+                print('bug2')
+                result.append(SlotSet(slot_to_fill,None))
         return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        #dispatcher.utter_message(template="utter_ask_end_step1")
+        return [FollowupAction("step2_form")]
+
+class Step2Form(FormAction):
+    def name(self):
+        return 'step2_form'
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        if tracker.get_slot("start02") == True:
+            return ["start02"]
+        else:
+            return ["start02","contact"]
+    def slot_mappings(self):
+        return{
+            "start02": [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ],
+            "contact": [
+                self.from_text()
+            ]
+        }
+    def validate_start02(self,value, dispatcher, tracker, domain):
+        # result = []
+        # # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        # #                                 trigger_date_time=datetime.datetime.now()
+        # #                                 + datetime.timedelta(seconds=30),
+        # #                                 name="my_reminder",
+        # #                                 kill_on_user_message=True))
+        # slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        # value = tracker.latest_message.get("text")
+        # slot_to_fill = tracker.get_slot("requested_slot")
+        # if slot_to_fill: 
+        #     slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        #     value = tracker.latest_message["entities"] 
+        #     # if not value:
+        #     #     text = tracker.latest_message.get("text")
+        #     #     result.append(SlotSet(slot_to_fill,text))
+        # for slot, value in slot_values.items():
+        #     result.append(SlotSet(slot, value))
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            return {"start02":None}
+        elif intent == "deny":
+            return {"start02":False}
+        elif intent == "affirm":
+            return {"start02":True}
+        # else :
+        #     return {"start02":None}
     def submit(
         self,
         dispatcher: CollectingDispatcher,
@@ -608,12 +622,21 @@ class Step2Form(FormAction):
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
-        dispatcher.utter_message(template='utter_start05')
-        if tracker.get_slot('start04') == True:
-            return [result,FollowupAction('health_form')]
-        else:
-            dispatcher.utter_message("Vâng em xin chào anh/chị")
+        # dispatcher.utter_message(template='utter_start05')
+        # if tracker.get_slot('start02') == True:
+        #     return [result,FollowupAction('health_form')]
+        # else:
+        #     dispatcher.utter_message("Vâng em xin chào anh/chị")
+        #     return []
+        if tracker.get_slot("start02")==True :
+            dispatcher.utter_message('A/C vui lòng trả lời 4 câu hỏi sức khỏe, sau đó bên e sẽ có nhân viên xuống tận nơi làm hồ sơ và thu phí hoặc mình sẽ thanh toán trực tiếp trên website PVI.')
+            result.append(FollowupAction('health_form'))
+            return [FollowupAction('health_form')]
+        elif tracker.get_slot("start02")==False :
+            dispatcher.utter_message("Cảm ơn thời gian của A/C ạ. A/C vui lòng liên hệ số Hotline: 18006152 để được tư vấn chi tiết ạ. ")
+            # return [result,FollowupAction('')]
             return []
+
 class HealthForm(FormAction):
     def name(self):
         return 'health_form'
@@ -624,19 +647,23 @@ class HealthForm(FormAction):
         return {
             "health01": [
                 self.from_intent(intent="affirm",value= True),
-                self.from_intent(intent="deny",value= False)
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
             ],
             "health02": [
                 self.from_intent(intent="affirm",value= True),
-                self.from_intent(intent="deny",value= False)
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
             ],
             "health03": [
                 self.from_intent(intent="affirm",value= True),
-                self.from_intent(intent="deny",value= False)
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
             ],
             "health04": [
                 self.from_intent(intent="affirm",value= True),
-                self.from_intent(intent="deny",value= False)
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
             ]
         }
     def validate(self, dispatcher, tracker, domain):
@@ -658,7 +685,11 @@ class HealthForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         intent = tracker.latest_message.get("intent", {}).get("name")
-        if intent == "chitchat":
+        if intent == "affirm":
+            result.append(SlotSet(slot_to_fill,True))
+        elif intent == "deny":
+            result.append(SlotSet(slot_to_fill,False))
+        else :
             result.append(SlotSet(slot_to_fill,None))
         return result
     def submit(
@@ -677,16 +708,16 @@ class HealthForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         if tracker.get_slot('health01') == True or tracker.get_slot('health02') == True or tracker.get_slot('health03') == True or tracker.get_slot('health04') == True:
-            return [result,FollowupAction('sub_health_form')]      
+            return [FollowupAction('sub_health_form')]      
         else :
             if ran == 0 :
                 dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
                 dispatcher.utter_message(template='utter_step06')
-                return [result,FollowupAction('additional_form')]
+                return [FollowupAction('additional_form')]
             else :
                 dispatcher.utter_message('Cám ơn Anh/Chị đã trả lời câu hỏi, vì em chưa biết rõ về tình trạng sức khoẻ của Anh/Chị nên em xin phép được tiếp tục các bước tiếp theo')
                 dispatcher.utter_message('Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
-                return [result,FollowupAction('additional_form')]
+                return [FollowupAction('additional_form')]
 class SubHealthForm(FormAction):
     def name(self):
         return 'sub_health_form'
@@ -782,7 +813,7 @@ class SubHealthForm(FormAction):
                 return [result,FollowupAction('bad_health_form')]  
         dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.\n\nBên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.') 
         dispatcher.utter_message(template='utter_step06')  
-        return [result,FollowupAction('additional_form')]
+        return [FollowupAction('additional_form')]
 class BadHealthForm(FormAction):
     def name(self):
         return "bad_health_form"
@@ -811,7 +842,11 @@ class BadHealthForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         intent = tracker.latest_message.get("intent", {}).get("name")
-        if intent == "chitchat":
+        if intent == "affirm":
+            result.append(SlotSet(slot_to_fill,True))
+        elif intent == "deny":
+            result.append(SlotSet(slot_to_fill,False))
+        else :
             result.append(SlotSet(slot_to_fill,None))
         return result
     def submit(
@@ -827,9 +862,11 @@ class BadHealthForm(FormAction):
             dispatcher.utter_message("Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.")
             dispatcher.utter_message(template='utter_step06')  
             return [SlotSet('bad_sick',True),FollowupAction("additional_form")]
+
 class AdditionalForm(FormAction):
     def name(self):
         return 'additional_form'
+    
     @staticmethod
     def required_slots(tracker) -> List[Text]:
         return ['addition01','addition02','addition03']
@@ -837,15 +874,18 @@ class AdditionalForm(FormAction):
         return {
            "addition01": [
                 self.from_intent(intent='affirm',value= True),
-                self.from_intent(intent='deny',value= False)
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
             ],
             "addition02": [
                 self.from_intent(intent='affirm',value= True),
-                self.from_intent(intent='deny',value= False)
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
             ],
             "addition03": [
                 self.from_intent(intent='affirm',value= True),
-                self.from_intent(intent='deny',value= False)
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
             ]
         }
     def validate(self, dispatcher, tracker, domain):
@@ -863,7 +903,12 @@ class AdditionalForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         intent = tracker.latest_message.get("intent", {}).get("name")
-        if intent == "chitchat":
+        if intent == "affirm":
+            result.append(SlotSet(slot_to_fill,True))
+        elif intent == "deny":
+            result.append(SlotSet(slot_to_fill,False))
+        else :
+            print('bug')
             result.append(SlotSet(slot_to_fill,None))
         return result
     def submit(
@@ -881,4 +926,422 @@ class AdditionalForm(FormAction):
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
         dispatcher.utter_message('Em xin lưu ý, kể từ khi bắt đầu ký tên và đóng phí thì bảo hiểm này sẽ có hiệu lực sau 30 ngày cho ốm bệnh thông thường, sau 90 ngày cho bệnh liên quan đến ung thư và sau 1 năm cho bệnh có sẵn và mãn tính.')
-        return [result]
+        return [FollowupAction("info_form")]
+class InforForm(FormAction):
+    def name(self):
+        return "info_form"
+    @staticmethod
+    def is_id(string: Text) -> bool:
+        """Check if a string is an integer."""
+        try:
+            value = int(string)
+            regex = "\w{10}"
+            if re.search(regex,string):
+                return True
+        except :
+            return False
+    @staticmethod
+    def required_slots(tracker):
+        return ["name","id","id_time","id_location","payment"]
+    @staticmethod
+    def convert_tail(s):
+        s=s.lower()
+        if "h" in s:
+            s=s.replace("h","")
+            print("1")
+            return s
+        else:
+            print("2")
+            return s
+    def slot_mappings(self):
+        return {
+            "name":[
+                self.from_entity(entity="name"),
+                self.from_text()
+            ],
+            "id":[
+                self.from_entity(entity="id"),
+                self.from_text()
+            ],
+            "id_time":[
+                self.from_entity(entity="id_time"),
+                self.from_text()
+            ],
+            "id_location":[
+                # self.from_entity(entity="address")
+                self.from_text()
+            ],
+            "payment":[
+                self.from_entity(entity="payment"),
+                self.from_text()
+            ],
+        }
+    def validate_id(self,value, dispatcher, tracker, domain):
+        if self.is_id(value):
+            if len(value) >= 10 and len(value) <= 12 :
+                return {"id": value}
+            else:
+                return {"id": None}
+        else:
+            return {"id": None}
+    def validate_id_time(self,value, dispatcher, tracker, domain):
+        value = tracker.latest_message["entities"] 
+        value_=[]
+        for x in value:
+            value_.append(x['entity'])
+        if "day" in value_ and "month" in value_ and "year" in value_ and "hour" in value_:
+            for x in value:
+                if x['entity'] == 'day':
+                    day = x['value']
+                if x['entity'] == 'month':
+                    month = x['value']
+                if x['entity'] == 'year':
+                    year = x['value']
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    hour = self.convert_tail(hour)
+            time = datetime.datetime(int(year),int(month),int(day),int(hour))
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")
+        elif "day" in value_ and "month" in value_ and "year" in value_ :
+            for x in value:
+                if x['entity'] == 'day':
+                    day = x['value']
+                if x['entity'] == 'month':
+                    month = x['value']
+                if x['entity'] == 'year':
+                    year = x['value']
+            time = datetime.datetime(int(year),int(month),int(day))
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")     
+        elif "day2" in value_ and "hour" in value_  :
+            for x in value:
+                if x['entity'] == 'day2':
+                    day2 = x['value']
+                    if day2 == "nay":
+                        time= datetime.datetime.now()
+                    elif day2 == "mai":
+                        time= datetime.datetime.now() + datetime.timedelta(days=1)
+                    elif day2 == "kia":
+                        time = datetime.datetime.now() + datetime.timedelta(days=2)
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    hour = self.convert_tail(hour)
+            time = time.replace(hour=int(hour),minute=0,second=0)
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")
+        elif "hour" in value_ :
+            time = datetime.datetime.now()
+            for x in value:
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    time = time.replace(hour=int(hour),minute=0,second=0)
+                    time=time.strftime("%m/%d/%Y, %H:%M:%S")
+        else:
+            return {"id_time":None}
+        return {"id_time": time}
+    def submit(self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )->List[Dict]:
+        result = []
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if tracker.get_slot("payment") == "Online":
+            dispatcher.utter_message("Chọn thanh toán")
+            return []
+        else:
+            return [SlotSet("money","1.175.000 vnd"),FollowupAction("offline_pay_form")]
+class OfflinePay(FormAction):
+    def name(self):
+        return 'offline_pay_form'
+    @staticmethod
+    def required_slots(tracker):
+        return ["address","pay_time","confirm","last_ask"]
+    @staticmethod
+    def convert_tail(s):
+        s=s.lower()
+        if "h" in s:
+            s=s.replace("h","")
+            print("1")
+            return s
+        else:
+            print("2")
+            return s
+    def slot_mappings(self):
+        return {
+            "address":[
+                self.from_entity(entity="address"),
+                self.from_text()
+            ],
+            "pay_time":[
+                self.from_entity(entity="pay_time"),
+                self.from_text()
+            ],
+            "confirm":[
+                # self.from_entity(entity="pay_time"),
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ],
+            "last_ask":[
+                # self.from_entity(entity="address"),
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ]
+        }
+    def validate_confirm(self,value, dispatcher, tracker, domain):
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            return {"confirm":None}
+        return {"confirm":value}
+    def validate_last_ask(self,value, dispatcher, tracker, domain):
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "deny":
+            return {"last_ask":False}
+        elif intent == "affirm":
+            dispatcher.utter_message("A/c vui lòng thông cảm bên hệ thống bên em vẫn chưa hoàn thiện")
+            return {"last_ask":True}
+        else :
+            return {"last_ask": None}       
+    def validate_pay_time(self,value, dispatcher, tracker, domain):
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        # if intent != "give_day":
+        #     return{"pay_time":None}
+        value = tracker.latest_message["entities"] 
+        value_=[]
+        for x in value:
+            value_.append(x['entity'])
+        if "day" in value_ and "month" in value_ and "year" in value_ and "hour" in value_:
+            for x in value:
+                if x['entity'] == 'day':
+                    day = x['value']
+                if x['entity'] == 'month':
+                    month = x['value']
+                    if int(month) > 12:
+                        return {"pay_time":None}
+                if x['entity'] == 'year':
+                    year = x['value']
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    hour = self.convert_tail(hour)
+            time = datetime.datetime(int(year),int(month),int(day),int(hour))
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")
+            return {"pay_time": time}
+        elif "day" in value_ and "month" in value_ and "year" in value_ :
+            for x in value:
+                if x['entity'] == 'day':
+                    day = x['value']
+                if x['entity'] == 'month':
+                    month = x['value']
+                if x['entity'] == 'year':
+                    year = x['value']
+            time = datetime.datetime(int(year),int(month),int(day))
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")   
+            return {"pay_time": time}  
+        elif "day2" in value_ and "hour" in value_  :
+            for x in value:
+                if x['entity'] == 'day2':
+                    day2 = x['value']
+                    if day2 == "nay":
+                        time= datetime.datetime.now()
+                    elif day2 == "mai":
+                        time= datetime.datetime.now() + datetime.timedelta(days=1)
+                    elif day2 == "kia":
+                        time = datetime.datetime.now() + datetime.timedelta(days=2)
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    hour = self.convert_tail(hour)
+            time = time.replace(hour=int(hour),minute=0,second=0)
+            time=time.strftime("%m/%d/%Y, %H:%M:%S")
+            return {"pay_time": time}
+        elif "hour" in value_ :
+            time = datetime.datetime.now()
+            for x in value:
+                if x['entity'] == 'hour':
+                    hour = x['value']
+                    time = time.replace(hour=int(hour),minute=0,second=0)
+                    time=time.strftime("%m/%d/%Y, %H:%M:%S")
+            return {"pay_time": time}
+        else:
+            return {"pay_time":None}
+        
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        ):
+        
+        dispatcher.utter_message('Dạ em cảm ơn')
+        return []
+class FeeAsk(FormAction):
+    
+    def name(self):
+        return 'fee_ask_form'
+    @staticmethod
+    def required_slots(tracker) -> List[Text]:
+        global age
+        if int(age) < 55 :
+            return ['age']
+        else:
+            return ['age','UuViet_joinning']
+    def slot_mappings(self):
+        return {
+            "age": [
+                self.from_text()
+            ],
+            'UuViet_joinning': [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        global age
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        # if slot_to_fill !="already_had01" or slot_to_fill !="health_insurance" or slot_to_fill !="boss2" :
+        #     print("bug already")
+        #     return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        if slot_to_fill == "age":
+            intent = tracker.latest_message.get("intent", {}).get("name")
+            # if intent != "give_birthday":
+            #     return {"age": None}
+            value = tracker.latest_message["entities"]
+            # if value['entity'] == "age":
+            #     age = value['value']
+            #     return {"age": value}
+            value_=[]
+            for x in value:
+                value_.append(x['entity'])
+            if "age" in value_:
+                for x in value:
+                    if x['entity'] == 'age':
+                        age = x['value']
+                        result.append(SlotSet(slot_to_fill,age))
+            elif "day" in value_ and "month" in value_ and "year" in value_ :
+                for x in value:
+                    if x['entity'] == 'day':
+                        day = x['value']
+                    if x['entity'] == 'month':
+                        month = x['value']
+                        if int(month) > 12 :
+                            return {"age":None}
+                    if x['entity'] == 'year':
+                        year = x['value']
+                time = datetime.datetime(int(year),int(month),int(day))
+                x = datetime.datetime.now()
+                year_now = int(x.year)
+                print("year")
+                age = year_now - int(year)
+                print(age)
+                result.append(SlotSet(slot_to_fill,age))
+            else:
+                result.append(SlotSet(slot_to_fill,None))
+        if slot_to_fill == "UuViet_joinning":
+            intent = tracker.latest_message.get("intent", {}).get("name")
+            if intent == "affirm":
+                result.append(SlotSet(slot_to_fill,True))
+            elif intent == "deny":
+                result.append(SlotSet(slot_to_fill,False))
+            else:
+                result.append(SlotSet(slot_to_fill,None))
+        return result
+    # def validate_age(self,value, dispatcher, tracker, domain):
+    #     global age
+    #     # value = tracker.latest_message.get("text")
+    #     slot_to_fill = tracker.get_slot("requested_slot")
+    #     if slot_to_fill !="age":
+    #         print("'''")
+    #         return [SlotSet(slot_to_fill,None)]
+        
+    #     intent = tracker.latest_message.get("intent", {}).get("name")
+    #     # if intent != "give_birthday":
+    #     #     return {"age": None}
+    #     value = tracker.latest_message["entities"]
+    #     # if value['entity'] == "age":
+    #     #     age = value['value']
+    #     #     return {"age": value}
+    #     value_=[]
+    #     for x in value:
+    #         value_.append(x['entity'])
+    #     if "age" in value_:
+    #         for x in value:
+    #             if x['entity'] == 'age':
+    #                 age = x['value']
+    #                 return {"age": age}
+    #     elif "day" in value_ and "month" in value_ and "year" in value_ :
+    #         for x in value:
+    #             if x['entity'] == 'day':
+    #                 day = x['value']
+    #             if x['entity'] == 'month':
+    #                 month = x['value']
+    #             if x['entity'] == 'year':
+    #                 year = x['value']
+    #         time = datetime.datetime(int(year),int(month),int(day))
+    #         x = datetime.datetime.now()
+    #         year_now = int(x.year)
+    #         age = year_now - int(year)
+    #         return {"age": age}
+    #     else:
+    #         return {"age": None}
+    # def validate_UuViet_joinning(self,value, dispatcher, tracker, domain):
+    #     slot_to_fill = tracker.get_slot("requested_slot")
+    #     if slot_to_fill !="UuViet_joinning":
+    #         print("'''")
+    #         return [SlotSet(slot_to_fill,None)]
+    #     intent = tracker.latest_message.get("intent", {}).get("name")
+    #     if intent == "affirm":
+    #         return {"UuViet_joinning":True}
+    #     elif intent == "deny":
+    #         return {"UuViet_joinning":False}
+    #     else:
+    #         return {"UuViet_joinning":None}
+    def submit(self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )->List[Dict]:
+        global age
+        result = []
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        # age= tracker.get_slot("age")
+        print(age)
+        print(type(age))
+        if int(age) <= 45 :
+            dispatcher.utter_message("Mức phí là 1.175.000 vnd/năm.  BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+            result.append(SlotSet("money","1.175.000 vnd"))
+        elif int(age) < 55 and int(age) >= 46:
+            dispatcher.utter_message("Mức phí là 1.700.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+            result.append(SlotSet("money","1.700.000 vnd")) 
+        else:
+            if tracker.get_slot("UuViet_joinning") == True:
+                dispatcher.utter_message("Mức phí là 3.000.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+                result.append(SlotSet("money","3.000.000 vnd")) 
+            elif tracker.get_slot("UuViet_joinning") == False:
+                dispatcher.utter_message("Em rất tiếc sản phẩm PVI chỉ hỗ trợ cho KH từ 01-55 tuổi. Tuy nhiên, nhân cơ hội mức phí rất thấp 3000vnd/ngày, được hỗ trợ tất cả bệnh viện toàn quốc. Em hỗ trợ mình đăng ký cho gia đình người thân của mình ạ")
+                result.append(SlotSet("money","1.175.000 vnd"))
+        return [FollowupAction("health_form")]

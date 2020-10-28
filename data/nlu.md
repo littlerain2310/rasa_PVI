@@ -7,6 +7,7 @@
 - alo
 - kính chào
 - alo anh chào em
+- hi
 
 ## intent:goodbye
 - tạm biệt
@@ -38,6 +39,8 @@
 - sai
 - không đúng
 - chắc chắn sai rồi
+- chưa
+- mình chưa nhé
 
 ## intent:thank
 - anh cảm ơn
@@ -377,6 +380,10 @@
 - [10](number_insurance) cái
 - [100](number_insurance) người
 - bác mua cho [23](number_insurance) người
+- [9](number_insurance)
+- [1](number_insurance) thôi nhé
+
+
 
 ## intent:give_people
 - anh mua cho [vợ anh](people)
@@ -391,6 +398,12 @@
 - anh mua cho [vợ](people)
 - mua cho [con](people)
 - [mẹ](people)
+- anh mua cho [gia đình](people)
+- mua cho [mình](people)
+- anh mua cho [bản thân](people)
+- cho [người thân](people)
+- [vợ](people)
+- [công ty](people)
 
 ## intent:chitchat
 - hôm nay trời đẹp quá
@@ -432,18 +445,146 @@
 
 ## intent:give_time
 - tôi nằm viện trong vòng [2](week) tuần
-- chị đang nằm viện trong [4](day) ngày
-- bác đã nằm được [10](day) ngày rồi
-- tôi được chữa trị trong [4](day) ngày 
-- chú nằm được [3](day) đêm rồi
-- tôi ở trong viện [1](day) hôm
+- chị đang nằm viện trong [4](day_) ngày
+- bác đã nằm được [10](day_) ngày rồi
+- tôi được chữa trị trong [4](day_) ngày 
+- chú nằm được [3](day_) đêm rồi
+- tôi ở trong viện [1](day_) hôm
 - anh nằm viện được [2](week) tuần rồi
-- anh ở viện tầm [2](day) ngày
-- chắc là tôi ở viện được [20](day) ngày
-- tôi đã ở trong viện [6](day) ngày
-- [10](day) ngày
+- anh ở viện tầm [2](day_) ngày
+- chắc là tôi ở viện được [20](day_) ngày
+- tôi đã ở trong viện [6](day_) ngày
+- [10](day_) ngày
 - [10](week) tuần
 - tôi ở viện [10](week) tuần
-- anh nằm viện trong [10](day) ngày
-- trong viện được [3](day) ngày thôi
+- anh nằm viện trong [10](day_) ngày
+- trong viện được [3](day_) ngày thôi
 - tớ đã nằm viện [2](week) tuần
+
+## intent:fee_ask
+- phí bao nhiêu
+- giá như nào
+- phí của bên em là như nào vậy
+- giá của hợp đồng là bao nhiêu
+- em bán hợp đồng như nào vậy
+- giá thế nào
+- bao nhiêu
+- tôi phải trả bao nhiêu
+- báo giá đi em
+- giá 
+- giá là như nào
+
+## give_birthday
+- tôi [60](age) tuổi rồi
+- mình năm nay [20](age) tuổi
+- cháu năm nay [25](age) tuổi
+- [30](age)
+- [55](age) tuổi
+- [34](age) tuổi rồi
+- [27](age) tuổi
+- cô được [42](age) tuổi rồi
+- chú được [33](age) tuổi
+- mình đã được [29](age)
+
+
+## intent:give_name
+- [Lê Hoàng Long](name)
+- [Đỗ Quang Trung](name)
+- [donald trump](name)
+- [nguyễn viết trung](name)
+- [nguyễn thu hiền](name)
+- [phùng thị sen](name)
+- tên là [ngô thị vân](name)
+- tôi là [nghiêm văn trọng](name)
+- tên tôi là [tràn hùng gian](name)
+- tên [bùi thị thảo](name)
+- tên [vũ thu thủy](name)
+- tôi là [gia khánh linh](name)
+- tên theo giấy khai sinh là [phạm nhật vượng](name)
+- [ngô khánh linh](name)
+- tao là [nguyễn phú trọng](name)
+- [hồ chí minh](name)
+- anh là [đặng nam anh](name)
+- tên của tôi là [nguyễn phú trọng](name)
+- [nguyễn đình tâm](name)
+- [hoàng hồng ngọc](name)
+- [đặng thị liên](name)
+- [dương hà trung](name)
+- [lâm lý hảo](name)
+- [hà hoài thanh](name)
+- [lung thị linh](name)
+- tôi chính là [nguyễn ngọc anh](name)
+- [lê hoàng long](name)
+- [nguyễn đức nghĩa](name)
+- [dương quang huy](name)
+- tên anh là [nguyễn ngọc vũ](name)
+- tên là [lưu đại lương](name)
+- tên [Cristiano Ronaldo](name)
+- anh là [cao huy văn](name)
+- tên của anh chính là [Nguyễn Nam Anh](name)
+- [Nguyễn Tấn Mạnh](name)
+- [Cao Huy Văn](name)
+- [Lê Đình Tuấn](name)
+- [Nguyễn Thu Hiền](name)
+
+## intent:give_day
+- tôi sinh ngày [23](day) tháng [10](month) năm [2000](year)
+- chị đẻ ngày [1](day) tháng [12](month) năm [1990](year)
+- ngày [5](day) tháng [5](month) năm [1920](year)
+- ngày sinh tôi là [8](day) tháng [3](month) năm [2005](year)
+- [23](day) / [9](month) / [1990](year)
+- [4](day) / [2] (month) / [2001](year)
+- ngày sinh của chú là [30](day) tháng [3](month) năm [1940](year)
+- [4](day) - [2](month) - [2004](year)
+- anh sinh ngày [5](day) tháng [12](year) năm [2010](year)
+- [20](day) - [3](month) - [1930](year)
+- [12](day) [4](month) [1902](year)
+- [30](day) tháng [5](month) năm [1964](year)
+- [13](hour) h chiều [nay](day2)
+- [6](hour) giờ sáng [mai](day2)
+- đặt anh quả lịch [10](hour) h sáng ngày [kia](day2) nhé
+- cho anh hẹn [1](hour) giờ chiều [nay](day2)
+- ngày [mai](day2) lúc [4](hour) giờ chiều nhé
+- cho anh hẹn [6](hour) giờ  chiều [mai](day2)
+- năm [2020](year) tháng [10](month) ngày [23](day)
+- anh muốn vào [15](hour) giờ chiều ngày [kia](day2)
+- [15](hour) giờ hôm [nay](day2)
+- ngày mồng [8](day) tháng [7](month) năm [2020](year)
+- [6](hour) giờ mùng [5](day) tháng [9](month) năm [2000](year)
+- [10](hour) giờ vào trưa [mai](day2)
+- anh cần lịch hẹn vào mùng [5](day) tháng [7](month) năm [1999](year)
+- [20](hour) giờ tối ngày [kia](day2) 
+- [13h](hour) chiều [nay](day2) nhé
+- [6h](hour) ngày [23](day) tháng [9](month) năm [2020](year)
+- ngày [kia](day2) lúc [8h](hour) nhé
+- [20h](hour) ngày hôm [nay](day2)
+- [8h](hour) ngày mùng [19](day) tháng [6](month) năm [1999](year) nhé
+- [7H](hour) trưa [mai](day2) được không ?
+- [16H](hour) vào ngày hôm [nay](day2)
+- [5h](hour) ngày [mai](day2)
+- [14h](hour) ngày hôm [nay](day2)
+- [16h](hour) tối [nay](day2)
+- [20h](hour) [nay](day2)
+- tôi sinh ngày [23](day) tháng [10](month) năm [2000](year)
+- chị đẻ ngày [1](day) tháng [12](month) năm [1990](year)
+- ngày [5](day) tháng [5](month) năm [1920](year)
+- ngày sinh tôi là [8](day) tháng [3](month) năm [2005](year)
+- [23](day) / [9](month) / [1990](year)
+- [4](day) / [2] (month) / [2001](year)
+- ngày sinh của chú là [30](day) tháng [3](month) năm [1940](year)
+- [4](day) - [2](month) - [2004](year)
+- anh sinh ngày [5](day) tháng [12](month) năm [2010](year)
+- [20](day) - [3](month) - [1930](year)
+- [12](day) [4](month) [1902](year)
+- [30](day) tháng [5](month) năm [1964](year)
+## intent:give_address
+- anh muốn gặp ở [47 trung kính](address)
+- hẹn ở [Royal City](address) nhé
+- tôi sẽ nộp tiền ở [số 1 Trần Hưng Đạo](address)
+- hẹn mình ở [73 f8 tập thể Cao Su Sao Vàng](address) nhé
+- [Lăng Bác](address) nhé
+- mình muốn hẹn ở [Highland gần Chợ Bến Thành](address)
+- [Đại học Bách Khoa Hà Nội](address)
+- [số 21 ô chợ Dừa](address)
+- mình sẽ đợi bên bạn ở [số 5 Trần duy hưng](address)
+- tôi đặt lịch tại [15 Lê Thanh Nghị](address)

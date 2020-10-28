@@ -59,20 +59,40 @@ intents:
     triggers: action_FAQ04
 - FAQ05:
     triggers: action_FAQ05
+- fee_ask:
+    triggers: fee_ask_form
 - bot_challenge
 - give_number
 - give_people
+- give_birthday
+- give_name
+- give_address
 - EXTERNAL_reminder
 - give_time
 - sickness
 - unblieve04
+- give_day
 entities:
 - number_insurance
 - people
 - sick
-- day
+- day_
 - week
+- name
+- day
+- month
+- year
+- hour
+- day2
+- address
+- month_birthday
+- age
+- year_birthday
+- day_birhtday
 slots:
+  UuViet_joinning:
+    type: unfeaturized
+    auto_fill: false
   addition01:
     type: bool
     auto_fill: false
@@ -82,8 +102,14 @@ slots:
   addition03:
     type: bool
     auto_fill: false
+  address:
+    type: unfeaturized
+    auto_fill: false
   advise_more:
     type: bool
+    auto_fill: false
+  age:
+    type: unfeaturized
     auto_fill: false
   already_had01:
     type: unfeaturized
@@ -100,10 +126,19 @@ slots:
   busy:
     type: bool
     auto_fill: false
+  confirm:
+    type: unfeaturized
+    auto_fill: false
+  contact:
+    type: unfeaturized
+    auto_fill: false
   danger:
     type: bool
     auto_fill: false
   day:
+    type: unfeaturized
+    auto_fill: false
+  day_birhtday:
     type: unfeaturized
     auto_fill: false
   end_step1:
@@ -124,10 +159,37 @@ slots:
   health_insurance:
     type: unfeaturized
     auto_fill: false
+  id:
+    type: unfeaturized
+    auto_fill: false
+  id_location:
+    type: unfeaturized
+    auto_fill: false
+  id_time:
+    type: unfeaturized
+    auto_fill: false
+  last_ask:
+    type: unfeaturized
+    auto_fill: false
   low_voice:
     type: bool
     auto_fill: false
+  money:
+    type: unfeaturized
+    auto_fill: false
+  month_birthday:
+    type: unfeaturized
+    auto_fill: false
+  name:
+    type: unfeaturized
+    auto_fill: false
   number_insurance:
+    type: unfeaturized
+    auto_fill: false
+  pay_time:
+    type: unfeaturized
+    auto_fill: false
+  payment:
     type: unfeaturized
     auto_fill: false
   people:
@@ -139,12 +201,6 @@ slots:
   start02:
     type: unfeaturized
     auto_fill: false
-  start03:
-    type: unfeaturized
-    auto_fill: false
-  start04:
-    type: unfeaturized
-    auto_fill: false
   surgery:
     type: bool
     auto_fill: false
@@ -152,6 +208,9 @@ slots:
     type: unfeaturized
     auto_fill: false
   week:
+    type: unfeaturized
+    auto_fill: false
+  year_birthday:
     type: unfeaturized
     auto_fill: false
 responses:
@@ -162,41 +221,42 @@ responses:
       \ ơn Anh/Chị đã đăng ký. Nhân tiện đây, Anh/Chị cho em biết số lượng hợp đồng\
       \ mình muốn đăng ký được không ạ?"
   utter_ask_people:
-  - text: Mình mua cho ai vậy ạ?
+  - text: "Chào Anh/Chị, em là (tên TSR) gọi Anh/Chị từ công ty Hoa Sao liên kết với\
+      \ Công ty PVI  thuộc Dầu Khí Việt Nam \n Cám ơn anh chị đã nhấc máy.\nEm có\
+      \ nhận được thông tin là Anh/Chị có gửi yêu cầu trên trang web của bên em, cảm\
+      \ ơn Anh/Chị đã đăng ký. Nhân tiện đây, Anh/Chị cho em biết số lượng hợp đồng\
+      \ mình muốn đăng ký được không ạ?Mình mua cho ai vậy ạ?"
   utter_ask_end_step1:
   - text: "Cảm ơn thông tin của Anh/Chị.Em gọi để hỗ trợ Anh/Chị tham gia sản phẩm\
       \ này ạ.\n Anh/Chị có thể cho em ít phút được không ạ?"
   utter_ask_start02:
-  - text: Vì hiếm có cơ hội để mua được bảo hiểm của PVI với giá thấp mà Anh/Chị có
-      thể sử dụng tại các bệnh viện trên toàn quốc với giá thấp như vầy, nên chỉ lần
-      này em xin đề xuất đến Anh/Chị gói bảo hiểm này. Em tin rằng đây là sự lựa chọn
-      tuyệt vời cho Anh/Chị.
-  utter_ask_start03:
-  - text: "(Nhân tiên/Với lại) Em muốn giới thiệu đến Anh/Chị 3 đặc điểm nổi bật của\
-      \ bảo hiểm này như sau:\n - Thứ nhất, mặc dù bảo hiểm này hỗ trợ chi phí điều\
-      \ trị nội trú và phẫu thuật, tuy nhiên giá thì chỉ khoảng 3,000VND ngày. Ngay\
-      \ cả khi anh/chị mua thêm gói ngoại trú và gói điều trị tiên tiến cho một số\
-      \ bệnh ung thư, thì giá cũng chỉ thấp hơn 7,000 đồng ngày, chỉ bằng giá nửa\
-      \ ổ bánh mỳ. Hơn nữa, mặc dù giá thấp nhưng anh/chị được bảo đảm bởi công ty\
-      \ bảo hiểm Dầu khí uy tín lâu năm.\n\n- Thứ hai, cao cấp hơn bảo hiểm y tế nhà\
-      \ nuớc, bảo hiểm bên em không bị giới hạn về tuyến bệnh viện và sử dụng được\
-      \ ở bất kì bệnh viện nào trên toàn quốc.\n\n- Thứ ba, thủ tục mua bảo hiểm rất\
-      \ đơn giản chỉ mất 5 phút để hoàn thành thủ tục qua điện thoại"
-  utter_ask_start04:
-  - text: "Bởi vì đây là bảo hiểm sức khoẻ nên việc đăng ký tham gia bảo hiểm sẽ phụ\
-      \ thuộc vào tình hình sức khoẻ của Anh/Chị. Do vậy, Anh/Chị nên đăng ký bảo\
-      \ hiểm này lúc mình đang khoẻ mạnh.\n- Vì bảo hiểm này có nhiều lợi ích như\
-      \ tham gia không cần giấy tờ chứng nhận sức khoẻ của bác sĩ, thủ tục đăng kí\
-      \ nhanh chóng chỉ có 5 phút qua điện thoại, nhưng có thể sử dụng ở bất cứ bệnh\
-      \ viện nào trên toàn quốc cho điều trị nội trú, phẫu thuật, ngoại trú, và những\
-      \ dịch vụ điều trị với công nghệ tiên tiến nhất trong điều trị ung thư, đặc\
-      \ biệt là được bảo đảm bởi công ty Bảo hiểm Dầu Khí  Việt Nam uy tín hàng đầu\
-      \ tại Việt Nam.\n- Mặc dù bảo hiểm này có nhiều lợi ích như vậy nhưng Anh/Chị\
-      \ chỉ cần trả ít hơn 7,000 đồng ngày, thấp hơn cả ổ bánh mỳ ăn sáng nữa. Em\
-      \ ví dụ gói chính của sản phẩm này có thể chi trả cho Anh/Chị lên đến 62,5 triệu\
-      \ đồng phí phẫu thuật. Em tên ... phụ trách việc đăng kí bảo hiểm này, nhân\
-      \ cơ hội tốt này, Anh/Chị có muốn tham gia bảo hiểm ngay hôm nay luôn không\
-      \ ạ? "
+  - text: "Vì hiếm có cơ hội để mua được bảo hiểm của PVI với giá thấp mà Anh/Chị\
+      \ có thể sử dụng tại các bệnh viện trên toàn quốc với giá thấp như vầy, nên\
+      \ chỉ lần này em xin đề xuất đến Anh/Chị gói bảo hiểm này. Em tin rằng đây là\
+      \ sự lựa chọn tuyệt vời cho Anh/Chị. (Nhân tiên/Với lại) Em muốn giới thiệu\
+      \ đến Anh/Chị 3 đặc điểm nổi bật của bảo hiểm này như sau:\n - Thứ nhất, mặc\
+      \ dù bảo hiểm này hỗ trợ chi phí điều  trị nội trú và phẫu thuật, tuy nhiên\
+      \ giá thì chỉ khoảng 3,000VND ngày. Ngay  cả khi anh/chị mua thêm gói ngoại\
+      \ trú và gói điều trị tiên tiến cho một số  bệnh ung thư, thì giá cũng chỉ thấp\
+      \ hơn 7,000 đồng ngày, chỉ bằng giá nửa ổ bánh mỳ. Hơn nữa, mặc dù giá thấp\
+      \ nhưng anh/chị được bảo đảm bởi công ty  bảo hiểm Dầu khí uy tín lâu năm.\n\
+      \n- Thứ hai, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm bên em không bị giới\
+      \ hạn về tuyến bệnh viện và sử dụng được ở bất kì bệnh viện nào trên toàn quốc.\n\
+      \n- Thứ ba, thủ tục mua bảo hiểm rất đơn giản chỉ mất 5 phút để hoàn thành thủ\
+      \ tục qua điện thoại Bởi vì đây là bảo hiểm sức khoẻ nên việc đăng ký tham gia\
+      \ bảo hiểm sẽ phụ thuộc vào tình hình sức khoẻ của Anh/Chị. Do vậy, Anh/Chị\
+      \ nên đăng ký bảo hiểm này lúc mình đang khoẻ mạnh.\n- Vì bảo hiểm này có nhiều\
+      \ lợi ích như tham gia không cần giấy tờ chứng nhận sức khoẻ của bác sĩ, thủ\
+      \ tục đăng kí nhanh chóng chỉ có 5 phút qua điện thoại, nhưng có thể sử dụng\
+      \ ở bất cứ bệnh viện nào trên toàn quốc cho điều trị nội trú, phẫu thuật, ngoại\
+      \ trú, và những dịch vụ điều trị với công nghệ tiên tiến nhất trong điều trị\
+      \ ung thư, đặc biệt là được bảo đảm bởi công ty Bảo hiểm Dầu Khí  Việt Nam uy\
+      \ tín hàng đầu tại Việt Nam.\n- Mặc dù bảo hiểm này có nhiều lợi ích như vậy\
+      \ nhưng Anh/Chị chỉ cần trả ít hơn 7,000 đồng ngày, thấp hơn cả ổ bánh mỳ ăn\
+      \ sáng nữa. Em ví dụ gói chính của sản phẩm này có thể chi trả cho Anh/Chị lên\
+      \ đến 62,5 triệu đồng phí phẫu thuật. Em tên ... phụ trách việc đăng kí bảo\
+      \ hiểm này, nhân cơ hội tốt này, Anh/Chị có muốn tham gia bảo hiểm ngay hôm\
+      \ nay luôn không ạ? "
   utter_start05:
   - text: Em thấy Anh/Chị cũng quan tâm đến bảo hiểm này. Trước khi giới thiệu chi
       tiết về các gói bảo hiểm, Anh/Chị cho phép em hỏi  4 câu hỏi liên quan đến tình
@@ -299,6 +359,39 @@ responses:
   - text: A/c có BHYT phải không ?
   utter_ask_boss2:
   - text: A/c có phải chủ DN không ạ ?
+  utter_ask_age:
+  - text: Anh/Chị vui lòng cung cấp độ tuổi và ngày tháng năm sinh của mình ạ
+  utter_ask_UuViet_joinning:
+  - text: A/C đã từng tham gia BH Ngũ Phúc Ưu Việt từ năm 55 tuổi đến nay chưa ạ?
+  utter_ask_name:
+  - text: A/c vui lòng cung cấp giúp em họ tên
+  utter_ask_id:
+  - text: Số chứng minh thư của A/C là gì vậy ạ ?
+  utter_ask_id_time:
+  - text: Ngày tháng năm được cấp chứng minh thư là gì ạ ?
+  utter_ask_id_location:
+  - text: Nơi cấp ạ ?
+  utter_ask_payment:
+  - buttons:
+    - payload: Online
+      title: Thanh toán Online
+    - payload: Offline
+      title: Thanh Toán tại chỗ
+    text: A chị muốn đặt lịch hẹn với tư vấn viên hay thanh toán trên webside PVI
+      ạ?
+  utter_ask_address:
+  - text: A/c cung cấp giúp em địa chỉ hẹn gặp ạ?
+  utter_ask_pay_time:
+  - text: Khung giờ nào tiện cho A chị ạ?
+  utter_ask_confirm:
+  - text: Em xin xác nhận thông tin, vào lúc {pay_time} tại {address}, nhân viên sẽ
+      hỗ trợ mình làm hồ sơ và thu phí. A/C chuẩn bị giúp em số tiền mặt là {money}
+      và CMND
+  utter_ask_last_ask:
+  - text: A/c còn thắc mắc gì về chương trình của em không ạ ?
+  utter_ask_contact:
+  - text: A/C vui lòng cung cấp email/ sđt,  bên em sẽ liên hệ lại trong thời gian
+      sớm nhất ạ
 actions:
 - my_reminder
 - action_unbelieve00
@@ -333,3 +426,6 @@ forms:
 - sub_health_form
 - bad_health_form
 - step2_form
+- fee_ask_form
+- info_form
+- offline_pay_form

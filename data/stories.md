@@ -7,7 +7,6 @@
 
 ## step 2 to 4
 > part_one
-* affirm
   - step2_form
   - form{"name":"step2_form"}
   - form{"name":null}
@@ -24,11 +23,6 @@
   - form{"name":"additional_form"}
   - form{"name":null}
 
-## debug
-* deny
-  - sub_health_form
-  - form{"name":"sub_health_form"}
-  - form{"name":null}
 ## bot challenge
 * bot_challenge
   - utter_iamabot
