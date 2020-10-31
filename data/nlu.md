@@ -180,7 +180,21 @@
 - tớ đã đăng ký gói bảo hiểm 50 triệu một năm
 - đã đăng ký gói bảo hiểm 32 triệu một năm
 - tôi hiện đang dùng gói bảo hiểm 100 triệu rồi
-
+## intent: insurance_smilarity
+- có giống BHYT không
+- giống BHYT
+- giống BHYT à
+- cái của em có giống BHYT không
+- BHYT là cái này à
+- BHYT cũng như của em hả
+- cái này là BHYT
+- là BHYT 
+- BHYT cũng như vậy
+- như BHYT
+- giống hệt BHYT
+- cũng như BHYT
+- khá giống BHYT
+- nghe có vẻ là BHYT
 ## intent:already_medical01
 - tôi có BHYT rồi
 - đã có BHYT
@@ -191,7 +205,20 @@
 - chú có bảo hiểm y tế 
 - cháu có bảo hiểm y tế rồi
 - tôi thấy bảo hiểm y tế tốt hơn,giá cũng rẻ hơn sản phẩm này
-- ・BHYT không giới hạn số lần đi khám ngoại trú, cũng không giới hạn loại bệnh. Giá sản phẩm này cũng cao hơn BHYT.
+- BHYT không giới hạn số lần đi khám ngoại trú, cũng không giới hạn loại bệnh. Giá sản phẩm này cũng cao hơn BHYT.
+## intent:buy_more
+- anh có BHYT rồi mua thêm được không
+- tớ có BHYT rồi nhưng muốn mua thêm
+- mua thêm 
+- có BHYT muốn mua thêm
+- muốn mua thêm 
+- có BHYT rồi mua nữa
+- mua thêm ngoài BHYT
+- mua thêm cùng BHYT
+- mua thêm BHYT
+- BHYT mua thêm
+- thêm 
+- BHYT thêm
 
 ## intent:know_more01
 - để tôi tham khảo thêm
@@ -234,7 +261,25 @@
 - thông tin xin chuyển về email
 - gửi giúp tôi email
 - gửi vào email giúp tôi
+- em gửi email cho anh nhé
+- gửi email cho mình
+- gửi email
 
+## intent:email_yes
+- mình đã rõ rồi
+- rõ rồi
+- không có chỗ nào chưa rõ cả
+- không anh đã rõ rồi
+- rõ rồi
+- đã rõ 
+- rõ
+- tất cả đều rõ 
+- rõ hết rồi
+- mình đã rõ
+- rõ rồi
+- rõ lắm rồi
+- đã hiểu 
+- anh hiểu rồi nhưng vẫn cần email
 ## intent:advise_more
 - anh thấy công ty A tốt hơn công ty em
 - công ty H có chế độ tốt hơn bọn em
@@ -461,18 +506,8 @@
 - trong viện được [3](day_) ngày thôi
 - tớ đã nằm viện [2](week) tuần
 
-## intent:fee_ask
-- phí bao nhiêu
-- giá như nào
-- phí của bên em là như nào vậy
-- giá của hợp đồng là bao nhiêu
-- em bán hợp đồng như nào vậy
-- giá thế nào
-- bao nhiêu
-- tôi phải trả bao nhiêu
-- báo giá đi em
-- giá 
-- giá là như nào
+
+
 
 ## give_birthday
 - tôi [60](age) tuổi rồi
@@ -485,7 +520,9 @@
 - cô được [42](age) tuổi rồi
 - chú được [33](age) tuổi
 - mình đã được [29](age)
-
+- [24](age)
+- [25](age)
+- [60](age)
 
 ## intent:give_name
 - [Lê Hoàng Long](name)
@@ -562,6 +599,9 @@
 - [7H](hour) trưa [mai](day2) được không ?
 - [16H](hour) vào ngày hôm [nay](day2)
 - [5h](hour) ngày [mai](day2)
+- [2h](hour)
+- [3h](hour)
+- [4h](hour)
 - [14h](hour) ngày hôm [nay](day2)
 - [16h](hour) tối [nay](day2)
 - [20h](hour) [nay](day2)
@@ -577,6 +617,38 @@
 - [20](day) - [3](month) - [1930](year)
 - [12](day) [4](month) [1902](year)
 - [30](day) tháng [5](month) năm [1964](year)
+- [23/10/2000](fulldatetime)
+- [12/5/1996](fulldatetime)
+- [6/10/1970](fulldatetime)
+- [22/2/2004](fulldatetime)
+- [03/12/2012](fulldatetime)
+- [3/12/1996](fulldatetime)
+- [23/12/1972](fulldatetime)
+- [11/2/1965](fulldatetime)
+- [17/8/1972](fulldatetime)
+- [19/5/1980](fulldatetime)
+- [11/2/1865](fulldatetime)
+- [3/1/2007](fulldatetime)
+- [31/1/1908](fulldatetime)
+- tôi sinh ngày [4/2/2010](fulldatetime)
+- [23-10-2000](fulldatetime)
+- [23-10-1999](fulldatetime)
+- [8-7-1908](fulldatetime)
+- [23-10-1996](fulldatetime)
+- [6pm](hour)
+- [8pm](hour)
+- [4pm](hour)
+- [3pm](hour)
+- [1pm](hour)
+- [6am](hour)
+- [7am](hour)
+- [7am](hour)
+- [8am](hour)
+- [9am](hour)
+- [10am](hour)
+- [11am](hour)
+- [12am](hour)
+
 ## intent:give_address
 - anh muốn gặp ở [47 trung kính](address)
 - hẹn ở [Royal City](address) nhé
@@ -588,3 +660,23 @@
 - [số 21 ô chợ Dừa](address)
 - mình sẽ đợi bên bạn ở [số 5 Trần duy hưng](address)
 - tôi đặt lịch tại [15 Lê Thanh Nghị](address)
+
+## intent:fee_ask
+- phí bao nhiêu
+- giá như nào
+- phí của bên em là như nào vậy
+- giá của hợp đồng là bao nhiêu
+- em bán hợp đồng như nào vậy
+- giá thế nào
+- bao nhiêu
+- tôi phải trả bao nhiêu
+- báo giá đi em
+- giá 
+- giá là như nào
+
+## regex:datetime
+- \d{2}-\d{2}-\d{4}
+- \d{2}\\d{2}\\d{4}
+
+## regex:hour
+- [0-24]h

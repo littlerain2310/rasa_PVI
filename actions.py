@@ -59,6 +59,54 @@ class ActionDangerForm(FormAction):
         else:
             return [SlotSet('danger',True),FollowupAction("step2_form")]
 
+class EmailForm(FormAction):
+    def name(self):
+        return "email_form"
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        return["email_confirm"]
+    def slot_mappings(self):
+        return {
+            "email_confirm": [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='email_yes',value= False),
+                self.from_intent(intent='deny',value= False)
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if slot_to_fill !="email_confirm":
+            print("'''")
+            return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        if tracker.get_slot("email_confirm") == False:
+            # dispatcher.utter_message(".")
+            return[SlotSet('email_confirm',True),FollowupAction("health_form")]
+        else:
+            dispatcher.utter_message('Mong A/c thông cảm hiện tại hệ thống bên em vẫn chưa hoàn thiện')
+            return [SlotSet('email_confirm',False)]
+
 class ActionBusyForm(FormAction):
     def name(self):
         return "action_busy_form"
@@ -114,6 +162,33 @@ class ActionNoNeed(Action):
         dispatcher.utter_message('Dạ vâng em hiểu ạ, chỉ ngày hôm nay A/C là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín số một trên thị trường')
         
         return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
+class BHYTSimilar(Action):
+    def name(self):
+        return "insurance_smilarity_actions"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]):
+        dispatcher.utter_message('Dạ vâng, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm PVI không bị giới hạn về tuyến bệnh viện, sử dụng được ở bất kì bệnh viện nào trên toàn quốc và quy trình rất nhanh và dễ dàng.  Nên có rất nhiều người mua thêm sản phẩm này bên cạnh gói BHYTNN để gia tăng quyền lợi. Nhân cơ hội phí thấp 3000vnd/ngày. Em hỗ trợ mình tham gia trong hôm nay ạ. ')
+        
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
+class ThinkMore(Action):
+    def name(self):
+        return "action_think_more"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]):
+        dispatcher.utter_message('Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham gia trong hôm nay ạ. ')
+        
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
+class BuyMore(Action):
+    def name(self):
+        return "buy_more"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]):
+        dispatcher.utter_message('Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi. BH PVI hỗ trợ phí 3000vnd/ngày.  Em hỗ trợ mình tham gia trong hôm nay ạ. ')
+        
+        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
 class ActionGoodHealth(Action):
     def name(self):
         return "action_good_health"
@@ -629,8 +704,8 @@ class Step2Form(FormAction):
         #     dispatcher.utter_message("Vâng em xin chào anh/chị")
         #     return []
         if tracker.get_slot("start02")==True :
-            dispatcher.utter_message('A/C vui lòng trả lời 4 câu hỏi sức khỏe, sau đó bên e sẽ có nhân viên xuống tận nơi làm hồ sơ và thu phí hoặc mình sẽ thanh toán trực tiếp trên website PVI.')
-            result.append(FollowupAction('health_form'))
+            # dispatcher.utter_message('A/C vui lòng trả lời 4 câu hỏi sức khỏe, sau đó bên e sẽ có nhân viên xuống tận nơi làm hồ sơ và thu phí hoặc mình sẽ thanh toán trực tiếp trên website PVI.')
+            # result.append(FollowupAction('health_form'))
             return [FollowupAction('health_form')]
         elif tracker.get_slot("start02")==False :
             dispatcher.utter_message("Cảm ơn thời gian của A/C ạ. A/C vui lòng liên hệ số Hotline: 18006152 để được tư vấn chi tiết ạ. ")
@@ -642,9 +717,27 @@ class HealthForm(FormAction):
         return 'health_form'
     @staticmethod
     def required_slots(tracker)-> List[Text]:
-        return["health01","health02","health03","health04"]
+        if tracker.get_slot("buy_confirm") == False:
+            return ["buy_confirm","contact"]
+        if tracker.get_slot("start_healthform") == False:
+            return["buy_confirm","start_healthform","contact"]
+        else:
+            return["buy_confirm","start_healthform","health01","health02","health03","health04"]
     def slot_mappings(self):
         return {
+            "start_healthform": [
+                self.from_intent(intent="affirm",value= True),
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
+            ],
+            "buy_confirm" : [
+                self.from_intent(intent="affirm",value= True),
+                self.from_intent(intent="deny",value= False),
+                self.from_text()
+            ],
+            "contact": [
+                self.from_text()
+            ],
             "health01": [
                 self.from_intent(intent="affirm",value= True),
                 self.from_intent(intent="deny",value= False),
@@ -707,17 +800,25 @@ class HealthForm(FormAction):
             slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
         for slot, value in slot_values.items():
             result.append(SlotSet(slot, value))
-        if tracker.get_slot('health01') == True or tracker.get_slot('health02') == True or tracker.get_slot('health03') == True or tracker.get_slot('health04') == True:
+        if tracker.get_slot("buy_confirm") == False:
+            dispatcher.utter_message("Cảm ơn thời gian của A/C ạ. A/C vui lòng liên hệ số Hotline: 18006152 để được tư vấn chi tiết ạ. ")
+            return []
+        if tracker.get_slot("start_healthform") == False:
+            dispatcher.utter_message("Cảm ơn thời gian của A/C ạ. A/C vui lòng liên hệ số Hotline: 18006152 để được tư vấn chi tiết ạ. ")
+            return []
+        elif tracker.get_slot('health01') == True or tracker.get_slot('health02') == True or tracker.get_slot('health03') == True or tracker.get_slot('health04') == True:
             return [FollowupAction('sub_health_form')]      
         else :
-            if ran == 0 :
-                dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
-                dispatcher.utter_message(template='utter_step06')
-                return [FollowupAction('additional_form')]
-            else :
-                dispatcher.utter_message('Cám ơn Anh/Chị đã trả lời câu hỏi, vì em chưa biết rõ về tình trạng sức khoẻ của Anh/Chị nên em xin phép được tiếp tục các bước tiếp theo')
-                dispatcher.utter_message('Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
-                return [FollowupAction('additional_form')]
+            dispatcher.utter_message(template= 'utter_step06')
+            # dispatcher.utter_message("Dạ e xin chúc mừng tình hình sức khỏe mình rất tốt đủ điều kiện tham gia chương trình bên em. \nVà đây là các đặc điểm nổi trội của gói bảo hiểm chính:\nViện phí trong thời gian điều trị nội trú: (Tối đa 60 ngày/năm) 1,250,000 VND/ngày, tối đa 62,500,000 VND/năm \n- Tiền giường điều trị\n- Xét nghiệm, chẩn đoán hình ảnh\n- Thuốc điều trị\n- Các chi phí y tế khác\n2. Chi phí phẫu thuật (không bao gồm chi phí khám tiền phẫu thuật) : tối đa 62,500,000 VND/năm \n3. Chi phí y tế cho phương pháp điều trị ung thư tiên tiến (giới hạn cho từng bệnh) lên đến 125,000,000 VND/năm  \n\nTiếp theo, em xin giới thiệu đến A/C những gói lựa chọn và gói nâng cấp có thể thêm vào gói chính của A/C như sau: " )
+            # if ran == 0 :
+            #     dispatcher.utter_message('Cảm ơn Anh/Chị đã trả lời các câu hỏi. Em xin xác nhận ở thời điểm hiện tại, tình hình sức khoẻ Anh/Chị là rất tốt.Bên em sẽ tiến hành các văn bản khai báo sức khỏe chính thức sau. Trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
+            #     dispatcher.utter_message(template='utter_step06')
+            #     return [FollowupAction('additional_form')]
+            # else :
+            #     dispatcher.utter_message('Cám ơn Anh/Chị đã trả lời câu hỏi, vì em chưa biết rõ về tình trạng sức khoẻ của Anh/Chị nên em xin phép được tiếp tục các bước tiếp theo')
+            #     dispatcher.utter_message('Các câu hỏi trên đây chỉ dùng để tham khảo về tình hình sức khoẻ hiện tại của Anh/Chị, chưa phải là văn bản chính thức.\nEm nhận thấy Anh/Chị đang rất quan tâm về sản phẩm này, nhân viên bên em sẽ đến tận nơi của anh chị để hỗ trợ hoàn tất bảng câu hỏi sức khoẻ. Anh/Chị vui lòng điền đầy đủ thông tin và kí tên xác nhận.\nNhưng trước tiên, em xin phép giới thiệu chi tiết gói sản phẩm.')
+            return [FollowupAction('additional_form')]
 class SubHealthForm(FormAction):
     def name(self):
         return 'sub_health_form'
@@ -942,6 +1043,7 @@ class InforForm(FormAction):
             return False
     @staticmethod
     def required_slots(tracker):
+        print("toi vao day roi")
         return ["name","id","id_time","id_location","payment"]
     @staticmethod
     def convert_tail(s):
@@ -949,6 +1051,13 @@ class InforForm(FormAction):
         if "h" in s:
             s=s.replace("h","")
             print("1")
+            return s
+        elif "pm" in s:
+            s=s.replace("pm","")
+            s= int(s)+12
+            return s
+        elif "am" in s:
+            s=s.replace("am","")
             return s
         else:
             print("2")
@@ -1032,6 +1141,7 @@ class InforForm(FormAction):
             for x in value:
                 if x['entity'] == 'hour':
                     hour = x['value']
+                    hour = self.convert_tail(hour)
                     time = time.replace(hour=int(hour),minute=0,second=0)
                     time=time.strftime("%m/%d/%Y, %H:%M:%S")
         else:
@@ -1067,6 +1177,13 @@ class OfflinePay(FormAction):
         if "h" in s:
             s=s.replace("h","")
             print("1")
+            return s
+        elif "pm" in s:
+            s=s.replace("pm","")
+            s= int(s)+12
+            return s
+        elif "am" in s:
+            s=s.replace("am","")
             return s
         else:
             print("2")
@@ -1162,6 +1279,7 @@ class OfflinePay(FormAction):
             for x in value:
                 if x['entity'] == 'hour':
                     hour = x['value']
+                    hour = self.convert_tail(hour)
                     time = time.replace(hour=int(hour),minute=0,second=0)
                     time=time.strftime("%m/%d/%Y, %H:%M:%S")
             return {"pay_time": time}
@@ -1177,8 +1295,8 @@ class OfflinePay(FormAction):
         
         dispatcher.utter_message('Dạ em cảm ơn')
         return []
+        
 class FeeAsk(FormAction):
-    
     def name(self):
         return 'fee_ask_form'
     @staticmethod
@@ -1231,7 +1349,15 @@ class FeeAsk(FormAction):
             value_=[]
             for x in value:
                 value_.append(x['entity'])
-            if "age" in value_:
+            if 'fulldatetime' in value_:
+                for x in value:
+                    if x['entity'] == 'fulldatetime':
+                        year_now = datetime.datetime.now()
+                        year_now = int(year_now.year)
+                        year = x['value'][-4:]
+                        age = year_now - int(year)
+                        result.append(SlotSet(slot_to_fill,age))       
+            elif "age" in value_:
                 for x in value:
                     if x['entity'] == 'age':
                         age = x['value']
@@ -1253,8 +1379,24 @@ class FeeAsk(FormAction):
                 age = year_now - int(year)
                 print(age)
                 result.append(SlotSet(slot_to_fill,age))
+            elif "day" in value_:
+                for x in value:
+                    if x['entity'] == 'day':
+                        age = x['value']
+                        result.append(SlotSet(slot_to_fill,age))
+            elif "month" in value_:
+                    for x in value:
+                        if x['entity'] == 'month':
+                            age = x['value']
+                            result.append(SlotSet(slot_to_fill,age))
+            elif "year" in value_:
+                    for x in value:
+                        if x['entity'] == 'year':
+                            age = x['value']
+                            result.append(SlotSet(slot_to_fill,age))
             else:
                 result.append(SlotSet(slot_to_fill,None))
+       
         if slot_to_fill == "UuViet_joinning":
             intent = tracker.latest_message.get("intent", {}).get("name")
             if intent == "affirm":
