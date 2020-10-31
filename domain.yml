@@ -134,6 +134,9 @@ slots:
   busy:
     type: bool
     auto_fill: false
+  buy_confirm:
+    type: unfeaturized
+    auto_fill: false
   confirm:
     type: unfeaturized
     auto_fill: false
@@ -147,6 +150,9 @@ slots:
     type: unfeaturized
     auto_fill: false
   day_birhtday:
+    type: unfeaturized
+    auto_fill: false
+  email_confirm:
     type: unfeaturized
     auto_fill: false
   end_step1:
@@ -209,6 +215,9 @@ slots:
   start02:
     type: unfeaturized
     auto_fill: false
+  start_healthform:
+    type: unfeaturized
+    auto_fill: false
   surgery:
     type: bool
     auto_fill: false
@@ -221,31 +230,36 @@ slots:
   year_birthday:
     type: unfeaturized
     auto_fill: false
-  start_healthform:
-    type: unfeaturized
-    auto_fill: false
-  email_confirm:
-    type: unfeaturized
-    auto_fill: false
-  buy_confirm:
-    type: unfeaturized
-    auto_fill: false
 responses:
   utter_ask_number_insurance:
-  - text: " Chào Anh/Chị, em là tư vấn viên từ công ty Hoa Sao liên kết với Công ty PVI thuộc Dầu Khí Việt Nam. Anh/Chị cho em biết số lượng hợp đồng mình muốn đăng ký được không ạ? Mình mua cho ai vậy ạ?"
+  - text: ' Chào Anh/Chị, em là tư vấn viên từ công ty Hoa Sao liên kết với Công ty
+      PVI thuộc Dầu Khí Việt Nam. Anh/Chị cho em biết số lượng hợp đồng mình muốn
+      đăng ký được không ạ? Mình mua cho ai vậy ạ?'
   utter_ask_people:
-  - text: "Chào Anh/Chị, em là tư vấn viên từ công ty Hoa Sao liên kết với Công ty PVI thuộc Dầu Khí Việt Nam. Anh/Chị cho em biết số lượng hợp đồng mình muốn đăng ký được không ạ? Mình mua cho ai vậy ạ?"
+  - text: Chào Anh/Chị, em là tư vấn viên từ công ty Hoa Sao liên kết với Công ty
+      PVI thuộc Dầu Khí Việt Nam. Anh/Chị cho em biết số lượng hợp đồng mình muốn
+      đăng ký được không ạ? Mình mua cho ai vậy ạ?
   utter_ask_end_step1:
   - text: "Cảm ơn thông tin của Anh/Chị.Em gọi để hỗ trợ Anh/Chị tham gia sản phẩm\
       \ này ạ.\n Anh/Chị có thể cho em ít phút được không ạ?"
   utter_ask_start02:
-  - text: "Em xin cám ơn. Vì hiếm có cơ hội để mua được bảo hiểm của PVI với giá thấp mà Anh/Chị có thể sử dụng tại các bệnh viện trên toàn quốc. Em tin rằng đây là sự lựa chọn tuyệt vời cho Anh/Chị.
-E muốn giới thiệu đến Anh/Chị 3 đặc điểm nổi bật của bảo hiểm này:
- Thứ nhất, bảo hiểm hỗ trợ chi phí điều trị nội trú và phẫu thuật, giá chỉ khoảng 3,000VND ngày. Anh/chị mua thêm gói ngoại trú và gói điều trị tiên tiến cho một số bệnh ung thư, thì giá cũng chỉ thấp hơn 7,000 đồng ngày và được bảo đảm bởi công ty bảo hiểm Dầu khí uy tín lâu năm.
-Thứ hai, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm PVI không bị giới hạn về tuyến bệnh viện và sử dụng được ở bất kì bệnh viện nào trên toàn quốc.
-Thứ ba, thủ tục mua bảo hiểm rất đơn giản chỉ mất 5 phút để hoàn thành thủ tục qua điện thoại. 
-Vì bảo hiểm này có nhiều lợi ích như tham gia không cần giấy tờ chứng nhận sức khoẻ của bác sĩ, BH hỗ trợ điều trị nội trú, phẫu thuật, ngoại trú, và những dịch vụ điều trị với công nghệ tiên tiến nhất trong điều trị ung thư, đặc biệt là được bảo đảm bởi công ty Bảo hiểm Dầu Khí  Việt Nam uy tín hàng đầu tại Việt Nam. Em ví dụ gói chính của sản phẩm này có thể chi trả cho Anh/Chị lên đến 62,5 triệu đồng phí phẫu thuật.
- \nEm hỗ trợ mình ngay trong hôm nay ạ"
+  - text: "Em xin cám ơn. Vì hiếm có cơ hội để mua được bảo hiểm của PVI với giá thấp\
+      \ mà Anh/Chị có thể sử dụng tại các bệnh viện trên toàn quốc. Em tin rằng đây\
+      \ là sự lựa chọn tuyệt vời cho Anh/Chị. E muốn giới thiệu đến Anh/Chị 3 đặc\
+      \ điểm nổi bật của bảo hiểm này: Thứ nhất, bảo hiểm hỗ trợ chi phí điều trị\
+      \ nội trú và phẫu thuật, giá chỉ khoảng 3,000VND ngày. Anh/chị mua thêm gói\
+      \ ngoại trú và gói điều trị tiên tiến cho một số bệnh ung thư, thì giá cũng\
+      \ chỉ thấp hơn 7,000 đồng ngày và được bảo đảm bởi công ty bảo hiểm Dầu khí\
+      \ uy tín lâu năm. Thứ hai, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm PVI\
+      \ không bị giới hạn về tuyến bệnh viện và sử dụng được ở bất kì bệnh viện nào\
+      \ trên toàn quốc. Thứ ba, thủ tục mua bảo hiểm rất đơn giản chỉ mất 5 phút để\
+      \ hoàn thành thủ tục qua điện thoại. Vì bảo hiểm này có nhiều lợi ích như tham\
+      \ gia không cần giấy tờ chứng nhận sức khoẻ của bác sĩ, BH hỗ trợ điều trị nội\
+      \ trú, phẫu thuật, ngoại trú, và những dịch vụ điều trị với công nghệ tiên tiến\
+      \ nhất trong điều trị ung thư, đặc biệt là được bảo đảm bởi công ty Bảo hiểm\
+      \ Dầu Khí  Việt Nam uy tín hàng đầu tại Việt Nam. Em ví dụ gói chính của sản\
+      \ phẩm này có thể chi trả cho Anh/Chị lên đến 62,5 triệu đồng phí phẫu thuật.\
+      \ \nEm hỗ trợ mình ngay trong hôm nay ạ"
   utter_ask_start_healthform:
   - text: Em thấy Anh/Chị cũng quan tâm đến bảo hiểm này. Trước khi giới thiệu chi
       tiết về các gói bảo hiểm, Anh/Chị cho phép em hỏi  4 câu hỏi liên quan đến tình
@@ -271,13 +285,16 @@ Vì bảo hiểm này có nhiều lợi ích như tham gia không cần giấy t
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_step06:
-  - text: "Dạ e xin chúc mừng tình hình sức khỏe mình rất tốt đủ điều kiện tham gia chương trình bên em. Và đây là các đặc điểm nổi trội của gói bảo hiểm chính:\n1. Viện phí trong\
-      \ thời gian điều trị nội trú: (Tối đa 60 ngày/năm) 1,250,000 VND/ngày, tối đa\
-      \ 62,500,000 VND/năm\n  - Tiền giường điều trị\n- Xét nghiệm, chẩn đoán hình\
-      \ ảnh\n- Thuốc điều trị\n- Các chi phí y tế khác\n2. Chi phí phẫu thuật (không\
-      \ bao gồm chi phí khám tiền phẫu thuật) : tối đa 62,500,000 VND/năm\n3. Chi\
-      \ phí y tế cho phương pháp điều trị ung thư tiên tiến  (giới hạn cho từng bệnh)\
-      \ lên đến 125,000,000 VND/năm\nTiếp theo, em xin giới thiệu đến A/C những gói lựa chọn và gói nâng cấp có thể thêm vào gói chính của A/C như sau: "
+  - text: "Dạ e xin chúc mừng tình hình sức khỏe mình rất tốt đủ điều kiện tham gia\
+      \ chương trình bên em. Và đây là các đặc điểm nổi trội của gói bảo hiểm chính:\n\
+      1. Viện phí trong thời gian điều trị nội trú: (Tối đa 60 ngày/năm) 1,250,000\
+      \ VND/ngày, tối đa 62,500,000 VND/năm\n  - Tiền giường điều trị\n- Xét nghiệm,\
+      \ chẩn đoán hình ảnh\n- Thuốc điều trị\n- Các chi phí y tế khác\n2. Chi phí\
+      \ phẫu thuật (không bao gồm chi phí khám tiền phẫu thuật) : tối đa 62,500,000\
+      \ VND/năm\n3. Chi phí y tế cho phương pháp điều trị ung thư tiên tiến  (giới\
+      \ hạn cho từng bệnh) lên đến 125,000,000 VND/năm\nTiếp theo, em xin giới thiệu\
+      \ đến A/C những gói lựa chọn và gói nâng cấp có thể thêm vào gói chính của A/C\
+      \ như sau: "
   utter_ask_addition01:
   - text: Bên em cũng có gói lựa chọn hỗ trợ chi trả chi phí điều trị ung thư đắt
       đỏ như Anh/Chị sẽ nhận được tiền bảo hiểm khi có chẩn đoán ung thư lên đến 125
@@ -342,7 +359,8 @@ Vì bảo hiểm này có nhiều lợi ích như tham gia không cần giấy t
       cuối cùng ạ.
   utter_ask_already_had01:
   - text: Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản
-      phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi.Em hỗ trợ mình tham gia trong hôm nay ạ. 
+      phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi.Em hỗ trợ
+      mình tham gia trong hôm nay ạ.
   utter_ask_health_insurance:
   - text: A/c có BHYT phải không ?
   utter_ask_boss2:
@@ -381,9 +399,13 @@ Vì bảo hiểm này có nhiều lợi ích như tham gia không cần giấy t
   - text: A/C vui lòng cung cấp email/ sđt,  bên em sẽ liên hệ lại trong thời gian
       sớm nhất ạ
   utter_ask_buy_confirm:
-  - text: Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham gia trong hôm nay ạ
+  - text: Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị
+      nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham
+      gia trong hôm nay ạ
   utter_ask_email_confirm:
-  - text: Dạ chắc chắn em sẽ gửi email cho A/C nhưng sẽ mất của A/C 10-20 phút để đọc email , chi bằng lúc này để em hỗ trợ cho mình luôn ạ. Còn điểm nào A/C chưa rõ ạ?
+  - text: Dạ chắc chắn em sẽ gửi email cho A/C nhưng sẽ mất của A/C 10-20 phút để
+      đọc email , chi bằng lúc này để em hỗ trợ cho mình luôn ạ. Còn điểm nào A/C
+      chưa rõ ạ?
 actions:
 - my_reminder
 - action_unbelieve00
