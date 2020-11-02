@@ -13,6 +13,48 @@ import re
 import random
 
 age =0
+class DenyForm(FormAction):
+    def name(self):
+        return "deny_form"
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        return["contact"]
+    def slot_mappings(self):
+        return {
+            "contact": [
+                self.from_text()
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if slot_to_fill !="contact":
+            print("'''")
+            return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        dispatcher.utter_message("Cảm ơn thời gian của A/C ạ. A/C vui lòng liên hệ số Hotline: 18006152 để được tư vấn chi tiết ạ. ")
+        return []
+
 class ActionDangerForm(FormAction):
     def name(self):
         return "action_danger_form"
@@ -162,33 +204,142 @@ class ActionNoNeed(Action):
         dispatcher.utter_message('Dạ vâng em hiểu ạ, chỉ ngày hôm nay A/C là KH may mắn được bên em lựa chọn để mang đến lời đề nghị đặc biệt từ PVI, công ty bảo hiểm uy tín số một trên thị trường')
         
         return [Form(None),SlotSet('requested_slot',None),FollowupAction('step2_form')]
-class BHYTSimilar(Action):
+class BHYTSimilar(FormAction):
     def name(self):
         return "insurance_smilarity_actions"
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]):
-        dispatcher.utter_message('Dạ vâng, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm PVI không bị giới hạn về tuyến bệnh viện, sử dụng được ở bất kì bệnh viện nào trên toàn quốc và quy trình rất nhanh và dễ dàng.  Nên có rất nhiều người mua thêm sản phẩm này bên cạnh gói BHYTNN để gia tăng quyền lợi. Nhân cơ hội phí thấp 3000vnd/ngày. Em hỗ trợ mình tham gia trong hôm nay ạ. ')
-        
-        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
-class ThinkMore(Action):
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        return["BHYT"]
+    def slot_mappings(self):
+        return {
+            "BHYT": [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if slot_to_fill !="BHYT":
+            print("'''")
+            return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        if tracker.get_slot("BHYT") == False:
+            # dispatcher.utter_message("Một tiếng sau em gọi lại ạ.")
+            return[FollowupAction("deny_form")]
+        else:
+            return [SlotSet('BHYT',True),FollowupAction("health_form")]
+
+class ThinkMore(FormAction):
     def name(self):
         return "action_think_more"
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]):
-        dispatcher.utter_message('Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham gia trong hôm nay ạ. ')
-        
-        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
-class BuyMore(Action):
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        return ["think_more"]
+    def slot_mappings(self):
+        return {
+            "think_more": [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if slot_to_fill !="think_more":
+            print("'''")
+            return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        if tracker.get_slot("think_more") == False:
+            # dispatcher.utter_message("Một tiếng sau em gọi lại ạ.")
+            return[FollowupAction("deny_form")]
+        else:
+            return [SlotSet('think_more',True),FollowupAction("health_form")]
+class BuyMore(FormAction):
     def name(self):
-        return "buy_more"
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]):
-        dispatcher.utter_message('Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi. BH PVI hỗ trợ phí 3000vnd/ngày.  Em hỗ trợ mình tham gia trong hôm nay ạ. ')
-        
-        return [Form(None),SlotSet('requested_slot',None),FollowupAction('health_form')]
+        return "buy_more_form"
+    @staticmethod
+    def required_slots(tracker)-> List[Text]:
+        return["buy_more"]
+    def slot_mappings(self):
+        return {
+            "buy_more": [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False)
+            ]
+        }
+    def validate(self, dispatcher, tracker, domain):
+        result = []
+        # result.append(ReminderScheduled(intent_name="EXTERNAL_reminder",
+        #                                 trigger_date_time=datetime.datetime.now()
+        #                                 + datetime.timedelta(seconds=30),
+        #                                 name="first_remind",
+        #                                 kill_on_user_message=True))
+        slot_values = self.extract_other_slots(dispatcher, tracker, domain)
+        value = tracker.latest_message.get("text")
+        slot_to_fill = tracker.get_slot("requested_slot")
+        if slot_to_fill: 
+            slot_values.update(self.extract_requested_slot(dispatcher,tracker,domain))
+        for slot, value in slot_values.items():
+            result.append(SlotSet(slot, value))
+        if slot_to_fill !="buy_more":
+            print("'''")
+            return [SlotSet(slot_to_fill,None)]
+        intent = tracker.latest_message.get("intent", {}).get("name")
+        if intent == "chitchat":
+            result.append(SlotSet(slot_to_fill,None))
+        return result
+    def submit(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+        )  ->List[Dict]:
+        if tracker.get_slot("buy_more") == False:
+            # dispatcher.utter_message("Một tiếng sau em gọi lại ạ.")
+            return[FollowupAction("deny_form")]
+        else:
+            return [SlotSet('buy_more',True),FollowupAction("step2_form")]
 class ActionGoodHealth(Action):
     def name(self):
         return "action_good_health"

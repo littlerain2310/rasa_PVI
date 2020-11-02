@@ -24,8 +24,6 @@ intents:
     triggers: action_fast_voice
 - questions:
     triggers: action_question
-- already_had01:
-    triggers: already_had01_form
 - already_had02:
     triggers: already_had02_form
 - already_medical01:
@@ -75,7 +73,7 @@ intents:
 - unblieve04
 - give_day
 - buy_more:
-    triggers: buy_more
+    triggers: buy_more_form
 - email_yes
 - insurance_smilarity:
     triggers: insurance_smilarity_actions
@@ -244,7 +242,22 @@ slots:
   join_old_no:
     type: unfeaturized
     auto_fill: false
+  buy_more:
+    type: unfeaturized
+    auto_fill: false
+  think_more:
+    type: unfeaturized
+    auto_fill: false
+  BHYT:
+    type: unfeaturized
+    auto_fill: false
 responses:
+  utter_ask_BHYT:
+  - text: Dạ vâng, cao cấp hơn bảo hiểm y tế nhà nuớc, bảo hiểm PVI không bị giới hạn về tuyến bệnh viện, sử dụng được ở bất kì bệnh viện nào trên toàn quốc và quy trình rất nhanh và dễ dàng.  Nên có rất nhiều người mua thêm sản phẩm này bên cạnh gói BHYTNN để gia tăng quyền lợi. Nhân cơ hội phí thấp 3000vnd/ngày. Em hỗ trợ mình tham gia trong hôm nay ạ. 
+  utter_ask_think_more:
+  - text: "Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham gia trong hôm nay ạ."
+  utter_ask_buy_more: 
+  - text: Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi. BH PVI hỗ trợ phí 3000vnd/ngày.Em hỗ trợ mình tham gia trong hôm nay ạ. 
   utter_ask_number_insurance:
   - text: ' Chào Anh/Chị, em là tư vấn viên từ công ty Hoa Sao liên kết với Công ty
       PVI thuộc Dầu Khí Việt Nam. Anh/Chị cho em biết số lượng hợp đồng mình muốn
@@ -413,9 +426,7 @@ responses:
   - text: A/C vui lòng cung cấp email/ sđt,  bên em sẽ liên hệ lại trong thời gian
       sớm nhất ạ
   utter_ask_buy_confirm:
-  - text: Dạ vâng bảo hiểm PVI thuộc tập đoàn BH dầu khí VN, hỗ trợ chi phí điều trị
-      nội trú và phẫu thuật, giá thì chỉ khoảng 3,000VND ngày. Em hỗ trợ mình tham
-      gia trong hôm nay ạ
+  - text:  Chúc mừng A/C đã có gói bảo hiểm cho mình. Có rất nhiều người mua thêm sản phẩm này bên cạnh gói bảo hiểm hiện tại của họ để gia tăng quyền lợi. BH PVI hỗ trợ phí 3000vnd/ngày.  Em hỗ trợ mình tham gia trong hôm nay ạ. 
   utter_ask_email_confirm:
   - text: Dạ chắc chắn em sẽ gửi email cho A/C nhưng sẽ mất của A/C 10-20 phút để
       đọc email , chi bằng lúc này để em hỗ trợ cho mình luôn ạ. Còn điểm nào A/C
@@ -448,9 +459,9 @@ actions:
 - action_FAQ04
 - action_FAQ05
 - action_set_reminder
-- insurance_smilarity_actions
-- action_think_more
-- buy_more
+
+
+
 forms:
 - begin_form
 - health_form
@@ -469,3 +480,7 @@ forms:
 - info_form
 - offline_pay_form
 - email_form
+- deny_form
+- buy_more_form
+- action_think_more
+- insurance_smilarity_actions

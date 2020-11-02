@@ -27,6 +27,7 @@
 - rất hài lòng
 - có
 
+
 ## intent:deny
 - không
 - không bao giờ
@@ -42,6 +43,7 @@
 - chưa
 - mình chưa nhé
 
+
 ## intent:thank
 - anh cảm ơn
 - cảm ơn
@@ -54,11 +56,13 @@
 - bà cảm ơn
 - cảm tạ
 
+
 ## intent:bot_challenge
 - are you a bot?
 - are you a human?
 - am I talking to a bot?
 - am I talking to a human?
+
 
 ## intent:danger
 - tôi đang lái xe
@@ -73,6 +77,7 @@
 - lái xe
 - tớ lái xe
 
+
 ## intent:busy
 - tôi bận
 - tôi đang ở ngoài
@@ -85,6 +90,7 @@
 - bận
 - đang bận chào nhé
 
+
 ## intent:no_need
 - tôi không có nhu cầu
 - không nhu cầu
@@ -96,6 +102,7 @@
 - không có đủ điều kiện
 - chị chưa có nhu cầu
 - anh không có tiền
+
 
 ## intent:good_health
 - sức khỏe tôi tốt tôi không cần
@@ -110,6 +117,7 @@
 - đang khỏe chưa cần
 - sức khỏe của ông đang tốt không cần
 
+
 ## intent:family_deny
 - gia đình tôi không cho mua
 - vợ không cho mua
@@ -121,6 +129,7 @@
 - nhà tôi không muốn mua
 - vợ tôi không thích cho tôi mua
 - mẹ tôi không cần tôi mua
+
 
 ## intent:low_voice
 - tôi không nghe thấy gì hết
@@ -135,6 +144,7 @@
 - chả nghe thấy gì cả
 - tôi không nghe rõ
 
+
 ## intent:fast_voice
 - em nói nhanh quá,tôi nghe không hiểu
 - em nói chậm lại giúp tôi
@@ -148,6 +158,7 @@
 - nói chậm lại giúp tôi
 - chậm lại
 
+
 ## intent:questions
 - Bảo hiểm là gì ?
 - Lợi ích của bảo hiểm là gì ?
@@ -160,16 +171,7 @@
 - cần giải thích rõ về bảo hiểm
 - điều kiện sử dụng bảo hiểm này là gì
 
-## intent:already_had01
-- Tôi có bảo hiểm rồi
-- tớ đã có bảo hiểm rồi
-- mình có bảo hiểm rồi
-- đã có bảo hiểm
-- có bảo hiểm
-- nhà tôi đã có bảo hiểm
-- mình hiện tại đã mua bảo hiểm rồi
-- đã mua bảo hiểm
-- không cần mua vì tôi đã có bảo hiểm
+
 
 ## intent:already_had02
 - Có bảo hiểm rồi , phí năm khoảng 30 triệu
@@ -180,6 +182,8 @@
 - tớ đã đăng ký gói bảo hiểm 50 triệu một năm
 - đã đăng ký gói bảo hiểm 32 triệu một năm
 - tôi hiện đang dùng gói bảo hiểm 100 triệu rồi
+
+
 ## intent: insurance_smilarity
 - có giống BHYT không
 - giống BHYT
@@ -195,6 +199,8 @@
 - cũng như BHYT
 - khá giống BHYT
 - nghe có vẻ là BHYT
+
+
 ## intent:already_medical01
 - tôi có BHYT rồi
 - đã có BHYT
@@ -206,6 +212,8 @@
 - cháu có bảo hiểm y tế rồi
 - tôi thấy bảo hiểm y tế tốt hơn,giá cũng rẻ hơn sản phẩm này
 - BHYT không giới hạn số lần đi khám ngoại trú, cũng không giới hạn loại bệnh. Giá sản phẩm này cũng cao hơn BHYT.
+
+
 ## intent:buy_more
 - anh có BHYT rồi mua thêm được không
 - tớ có BHYT rồi nhưng muốn mua thêm
@@ -219,6 +227,16 @@
 - BHYT mua thêm
 - thêm 
 - BHYT thêm
+- Tôi có bảo hiểm rồi
+- tớ đã có bảo hiểm rồi
+- mình có bảo hiểm rồi
+- đã có bảo hiểm
+- có bảo hiểm
+- nhà tôi đã có bảo hiểm
+- mình hiện tại đã mua bảo hiểm rồi
+- đã mua bảo hiểm
+- không cần mua vì tôi đã có bảo hiểm
+- có bh rồi mua thêm được không
 
 ## intent:know_more01
 - để tôi tham khảo thêm
@@ -230,6 +248,7 @@
 - tôi cần thời gian
 - tôi sẽ tìm hiểu thêm
 - cần nhiều thông tin hơn
+
 
 ## intent: know_more02
 - để tôi tham khảo với gia đình
@@ -244,6 +263,7 @@
 - hỏi bố
 - tôi sẽ tham khảo ý kiến anh
 
+
 ## intent:know_more03
 - anh sẽ gọi lại sau
 - gọi lại sau
@@ -253,6 +273,7 @@
 - gọi lại cho mình sau
 - em gọi lại cho tôi nhé
 - gọi lại cho mình sau nhé
+
 
 ## intent:know_more04
 - gửi email đi em
@@ -264,6 +285,7 @@
 - em gửi email cho anh nhé
 - gửi email cho mình
 - gửi email
+
 
 ## intent:email_yes
 - mình đã rõ rồi
@@ -280,6 +302,8 @@
 - rõ lắm rồi
 - đã hiểu 
 - anh hiểu rồi nhưng vẫn cần email
+
+
 ## intent:advise_more
 - anh thấy công ty A tốt hơn công ty em
 - công ty H có chế độ tốt hơn bọn em
@@ -293,6 +317,7 @@
 - phí cao quá mà quyền lợi không như của anh đang dùng
 - bảo hiểm anh đang dùng ngon hơn của em
 - bảo hiểm anh dùng anh thấy tốt hơn
+
 
 ## intent:unbelieve00
 - tôi không tin
@@ -311,6 +336,7 @@
 - toàn lừa thôi
 - thôi nhá bảo hiểm lừa lắm
 
+
 ## intent:unbelieve01
 - nếu tôi không dùng bảo hiểm này 1 năm thì tôi mất hết tiền à
 - tôi không sử dụng thì sẽ mất hết tiền đúng không 
@@ -320,6 +346,7 @@
 - hâm à tự dưng mất tiền
 - tôi làm sao mà ốm đau được mà phải mua bảo hiểm
 - chị không xài loại này trong 1 năm thì chị mất tiền à
+
 
 ## intent:unbelieve02
 - thủ tục bồi thường quá phức tạp 
@@ -331,6 +358,7 @@
 - bồi thường khó
 - khó khăn khi được bồi thường
 - khá khó sau khi bồi thường
+
 
 ## intent:unbelieve03
 - tôi không tin tưởng qua điện thoại
@@ -344,6 +372,7 @@
 - anh không muốn được tư vấn qua điện thoại
 - bác không tin điện thoại
 
+
 ## intent:unblieve04
 - bảo hiểm sao chẳng thấy hợp đồng đâu thế
 - bảo hiểm kiểu gì mà không có hợp đồng
@@ -356,6 +385,7 @@
 - hợp đồng đâu vậy em
 - sao chẳng thấy hợp đồng
 
+
 ## intent:overage
 - tôi quá tuổi rồi không mua được
 - bác già quá rồi
@@ -363,6 +393,7 @@
 - cô già quá rồi
 - cảm ơn cháu nhưng bà quá tuổi rồi
 - bác quá già rồi không đăng ký được
+
 
 ## intent:FAQ01
 - quyền lợi bảo hiểm lựa chọn là gì
@@ -375,6 +406,7 @@
 - mua thêm thì chị có lợi ích gì
 - anh mua cái này anh sẽ thu về thứ gì
 
+
 ## intent:FAQ02
 - đăng ký mua thêm có khuyến mãi hay giảm giá không em ?
 - cho anh hỏi anh mua gói này có được ưu đãi gì không
@@ -386,6 +418,7 @@
 - cô có nhận được ưu dãi khi mua gói phụ không
 - cô sẽ được giảm giá khi mua thêm chứ
 
+
 ## intent:FAQ03
 - tại sao tôi phải mua thêm gói lựa chọn tôi nghĩ gói chính bao gồm đủ rồi
 - gói chính chưa đủ à mà tôi phải mua thêm gói phụ
@@ -395,6 +428,7 @@
 - gói chính đã bao gồm tất cả chưa
 - có gì lợi hơn khi mua gói phụ không em ?
 - anh được lợi gì khi mua gói phụ
+
 
 ## intent:FAQ04
 - nếu mua cho người thân thì cần thủ tục gì 
@@ -450,6 +484,7 @@
 - [vợ](people)
 - [công ty](people)
 
+
 ## intent:chitchat
 - hôm nay trời đẹp quá
 - abcdxyz
@@ -471,6 +506,7 @@
 - racing boy
 - abc
 
+
 ## intent:sickness
 - chị bị [cảm cúm](sick)
 - anh bị [đau họng](sick)
@@ -487,6 +523,7 @@
 - tôi có vấn đề với [bàng quang](sick)
 - anh đang [gãy chân](sick)
 - bé đang bị [bệnh tim](sick)
+
 
 ## intent:give_time
 - tôi nằm viện trong vòng [2](week) tuần
@@ -523,6 +560,7 @@
 - [24](age)
 - [25](age)
 - [60](age)
+
 
 ## intent:give_name
 - [Lê Hoàng Long](name)
@@ -563,6 +601,7 @@
 - [Cao Huy Văn](name)
 - [Lê Đình Tuấn](name)
 - [Nguyễn Thu Hiền](name)
+
 
 ## intent:give_day
 - tôi sinh ngày [23](day) tháng [10](month) năm [2000](year)
@@ -649,6 +688,7 @@
 - [11am](hour)
 - [12am](hour)
 
+
 ## intent:give_address
 - anh muốn gặp ở [47 trung kính](address)
 - hẹn ở [Royal City](address) nhé
@@ -660,6 +700,7 @@
 - [số 21 ô chợ Dừa](address)
 - mình sẽ đợi bên bạn ở [số 5 Trần duy hưng](address)
 - tôi đặt lịch tại [15 Lê Thanh Nghị](address)
+
 
 ## intent:fee_ask
 - phí bao nhiêu
@@ -674,12 +715,15 @@
 - giá 
 - giá là như nào
 
+
 ## regex:datetime
 - \d{2}-\d{2}-\d{4}
 - \d{2}\\d{2}\\d{4}
 
+
 ## regex:hour
 - [0-24]h
+
 
 ## intent:online_payment
 - tôi muốn đăng ký online
@@ -698,6 +742,7 @@
 - ví momo
 - website
 - thanh toán trên website
+
 
 ## intent:offline_payment
 - tại chỗ 
