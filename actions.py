@@ -1082,6 +1082,8 @@ class InforForm(FormAction):
             ],
             "payment":[
                 self.from_entity(entity="payment"),
+                self.from_intent(intent="online_payment",value="Online"),
+                self.from_intent(intent="offline_payment",value="Offline"),
                 self.from_text()
             ],
         }
@@ -1302,10 +1304,15 @@ class FeeAsk(FormAction):
     @staticmethod
     def required_slots(tracker) -> List[Text]:
         global age
-        if int(age) < 55 :
-            return ['age']
+        if int(age) < 46 :
+            return ['age','join_young']
+        elif int(age) >=46 and int(age) <=55:
+            return['age','join_mid']
         else:
-            return ['age','UuViet_joinning']
+            if tracker.get_slot('UuViet_joinning') == True :
+                return ['age','UuViet_joinning','join_old_yes']
+            else:
+                return ['age','UuViet_joinning','join_old_no']
     def slot_mappings(self):
         return {
             "age": [
@@ -1315,7 +1322,28 @@ class FeeAsk(FormAction):
                 self.from_intent(intent='affirm',value= True),
                 self.from_intent(intent='deny',value= False),
                 self.from_text()
-            ]
+            ],
+            'join_young': [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
+            ],
+            'join_mid': [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
+            ],
+            'join_old_yes': [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
+            ],
+            'join_old_no': [
+                self.from_intent(intent='affirm',value= True),
+                self.from_intent(intent='deny',value= False),
+                self.from_text()
+            ],
+          
         }
     def validate(self, dispatcher, tracker, domain):
         global age
@@ -1474,16 +1502,16 @@ class FeeAsk(FormAction):
         print(age)
         print(type(age))
         if int(age) <= 45 :
-            dispatcher.utter_message("Mức phí là 1.175.000 vnd/năm.  BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+            # dispatcher.utter_message("Mức phí là 1.175.000 vnd/năm.  BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
             result.append(SlotSet("money","1.175.000 vnd"))
         elif int(age) < 55 and int(age) >= 46:
-            dispatcher.utter_message("Mức phí là 1.700.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+            # dispatcher.utter_message("Mức phí là 1.700.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
             result.append(SlotSet("money","1.700.000 vnd")) 
         else:
             if tracker.get_slot("UuViet_joinning") == True:
-                dispatcher.utter_message("Mức phí là 3.000.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
+                # dispatcher.utter_message("Mức phí là 3.000.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. ")
                 result.append(SlotSet("money","3.000.000 vnd")) 
             elif tracker.get_slot("UuViet_joinning") == False:
-                dispatcher.utter_message("Em rất tiếc sản phẩm PVI chỉ hỗ trợ cho KH từ 01-55 tuổi. Tuy nhiên, nhân cơ hội mức phí rất thấp 3000vnd/ngày, được hỗ trợ tất cả bệnh viện toàn quốc. Em hỗ trợ mình đăng ký cho gia đình người thân của mình ạ")
+                # dispatcher.utter_message("Em rất tiếc sản phẩm PVI chỉ hỗ trợ cho KH từ 01-55 tuổi. Tuy nhiên, nhân cơ hội mức phí rất thấp 3000vnd/ngày, được hỗ trợ tất cả bệnh viện toàn quốc. Em hỗ trợ mình đăng ký cho gia đình người thân của mình ạ")
                 result.append(SlotSet("money","1.175.000 vnd"))
         return [FollowupAction("health_form")]

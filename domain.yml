@@ -79,6 +79,8 @@ intents:
 - email_yes
 - insurance_smilarity:
     triggers: insurance_smilarity_actions
+- online_payment
+- offline_payment
 entities:
 - number_insurance
 - people
@@ -228,6 +230,18 @@ slots:
     type: unfeaturized
     auto_fill: false
   year_birthday:
+    type: unfeaturized
+    auto_fill: false
+  join_young:
+    type: unfeaturized
+    auto_fill: false
+  join_mid:
+    type: unfeaturized
+    auto_fill: false
+  join_old_yes:
+    type: unfeaturized
+    auto_fill: false
+  join_old_no:
     type: unfeaturized
     auto_fill: false
 responses:
@@ -406,6 +420,14 @@ responses:
   - text: Dạ chắc chắn em sẽ gửi email cho A/C nhưng sẽ mất của A/C 10-20 phút để
       đọc email , chi bằng lúc này để em hỗ trợ cho mình luôn ạ. Còn điểm nào A/C
       chưa rõ ạ?
+  utter_ask_join_young:
+  - text: Mức phí là 1.175.000 vnd/năm.  BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. 
+  utter_ask_join_mid:
+  - text: Mức phí là 1.700.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. 
+  utter_ask_join_old_yes:
+  - text: Mức phí là 3.000.0000 vnd/năm. BH PVI hỗ trợ chi phí nội trú, phẫu thuật và chi phí điều trị Ung thư bằng kỹ thuật tiên tiến, mình được sử dụng tại tất cả bệnh viện toàn quốc. Em hỗ trợ mình tham gia trong hôm nay ạ. 
+  utter_ask_join_old_no:
+  - text: Em rất tiếc sản phẩm PVI chỉ hỗ trợ cho KH từ 01-55 tuổi. Tuy nhiên, nhân cơ hội mức phí rất thấp 3000vnd/ngày, được hỗ trợ tất cả bệnh viện toàn quốc. Em hỗ trợ mình đăng ký cho gia đình người thân của mình ạ
 actions:
 - my_reminder
 - action_unbelieve00

@@ -680,3 +680,37 @@
 
 ## regex:hour
 - [0-24]h
+
+## intent:online_payment
+- tôi muốn đăng ký online
+- online
+- online nhé em
+- cho mình thanh toán online
+- thanh toán online
+- online được không
+- trực tuyến
+- thanh toán bằng thẻ nhé
+- ví điện tử
+- viettelpay
+- pay
+- thẻ trực tuyến 
+- momo
+- ví momo
+- website
+- thanh toán trên website
+
+## intent:offline_payment
+- tại chỗ 
+- cho chị thanh toán tại chỗ
+- offline
+- hẹn nhân viên
+- tư vấn
+- nhân viên
+- hẹn nhân viên
+- mình muốn gặp nhân viên
+- gặp nhân viên
+- hẹn cho anh trả tiền tại chỗ
+- đặt lịch tại chỗ
+- tại nơi
+- tận nơi
+- cho anh mua tại chỗ nhé
